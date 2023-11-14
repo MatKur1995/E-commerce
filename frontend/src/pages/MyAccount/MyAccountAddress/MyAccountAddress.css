@@ -1,0 +1,66 @@
+.address-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.adress-wrapper {
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button {
+    width: 80%;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00A4EF;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    flex: 1;
+}
+
+.icons {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.icons span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.chuj11 {
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+
+    .adress-wrapper {
+        display: flex;
+    }
+
+    .card {
+        flex: 1;
+        /*min-width: 500px;*/
+    }
+
+    .address-container {
+        flex: 1;
+    }
+
+    .my-account-userinfo {
+        margin-top: 15px;
+    }
+
+}
+

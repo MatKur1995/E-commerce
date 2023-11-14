@@ -1,0 +1,42 @@
+.my-account-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.my-account-userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.my-account-userinfo img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.my-account-list {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+.my-account-item {
+    padding: 5px;
+    text-decoration: none;
+    color: #222222;
+    font-weight: 300;
+    border-bottom: 1px solid rgba(119,119,119,.17);
+}
+
+.my-account-item:first-of-type {
+    border-bottom: 1px solid rgba(119,119,119,.17);
+    border-top: 1px solid rgba(119,119,119,.17);
+}
+
+a.my-account-item i {
+    font-size: 24px;
+    min-width: 30px;
+    color: #336699;
+}

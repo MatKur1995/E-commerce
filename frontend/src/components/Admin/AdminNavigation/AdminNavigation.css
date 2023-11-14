@@ -1,0 +1,102 @@
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.overlay-show {
+    display: block;
+}
+
+@keyframes slideInFromLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutToLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+.admin-navi {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    background-color: #f6f6f6;
+    padding: 10px;
+    min-width: 250px;
+    z-index: 1010; /* Ensure the menu is above the overlay */
+    transform: translateX(-100%);
+}
+
+.admin-navi-open {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.admin-navi-closed {
+    animation: slideOutToLeft 0.5s ease-out forwards;
+}
+
+.admin-navi-close {
+    position: absolute;
+    cursor: pointer;
+    font-size: 20px;
+    top: 20px;
+    right: 20px;
+}
+
+.admin-navi-closed {
+    animation: slideOutToLeft 0.5s ease-out forwards;
+}
+
+
+.admin-navi-list, .sub-admin-nav-list {
+    list-style: none;
+}
+
+.admin-nav-submenu {
+    text-decoration: none;
+}
+
+.admin-navi-item a{
+    text-decoration: none;
+    color: #00193B;
+    font-size: 17px;
+}
+
+.admin-navi-title {
+    margin-top: 30px;
+}
+
+.admin-navi-title span {
+    color: rgba(0, 173, 219, 1);
+}
+
+.admin-navi-item {
+    padding: 10px 0;
+}
+
+.admin-navi-item i {
+    min-width: 20px;
+}
+
+.admin-navi-submenu {
+    margin-left: 10px;
+}
+
+.sub-admin-nav-list li {
+    padding: 10px 0;
+}
+
+.sub-admin-nav-list li a {
+    font-size: 14px;
+}

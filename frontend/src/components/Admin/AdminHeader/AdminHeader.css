@@ -1,0 +1,48 @@
+.header-admin {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    background-color: #f9f9f9;
+    padding: 10px;
+}
+
+.head-admin-bars {
+    color: #336699;
+}
+
+.header-admin {
+    margin: 10px;
+}
+
+.bell-search-container {
+    display: flex;
+    margin-left: auto;
+    color: #8D8D99;
+}
+
+.header-admin-search {
+    margin-left: auto;
+}
+
+.head-admin-bell {
+    margin-left: 10px;
+}
+
+.head-admin-bars {
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.overlay-show {
+    display: block;
+}

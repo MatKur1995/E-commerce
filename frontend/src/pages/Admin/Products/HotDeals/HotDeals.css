@@ -1,0 +1,93 @@
+.hot-deals-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.hot-deal {
+    display: flex;
+    padding: 10px;
+    min-width: 150px;
+    flex-direction: column;
+    box-shadow: 0 15px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 5px;
+}
+
+.hot-deal p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+.hot-deal img, .hot-deals-items img {
+    /*align-self: center;*/
+    max-width: 60px;
+}
+
+.hot-deal-del {
+    font-size: 13px;
+    background-color: #de0000;
+    border: none;
+    padding: 2px 4px;
+    color: #ffffff;
+}
+
+.hot-deal-title, .add-hotdeals-title {
+    font-weight: 300;
+    margin: 10px;
+}
+
+.prod-searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.prod-searchbar input {
+    padding-right: 30px; /* Dodaj padding, żeby tekst nie nachodził na ikonę */
+    width: 100%; /* Pełna szerokość kontenera */
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.deals-search {
+    position: absolute;
+    right: 10px; /* Odstęp ikony od prawej krawędzi inputa */
+    pointer-events: none; /* Zapobiega interakcji z ikoną (klikanie, itp.) */
+}
+
+.wrapper-deals {
+    display: flex;
+}
+
+.wrapper-deals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px;
+}
+
+.hot-deals-items {
+    /*flex-basis: calc(50% - 10px);*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    padding: 5px;
+}
+
+.hot-deal-add {
+    border: none;
+    background-color: #2b9600;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 2px 4px;
+    width: 100%;
+}
+
+.all-products {
+    margin-top: 20px;
+}
+
+
+

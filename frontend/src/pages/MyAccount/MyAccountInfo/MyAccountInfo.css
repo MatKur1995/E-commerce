@@ -1,0 +1,79 @@
+.info-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 30px;
+}
+
+.my-account-info {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.info-p {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.account-changes {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.account-changes input {
+    padding: 5px;
+    border: 2px solid rgba(119,119,119,.17);
+    border-radius: 5px;
+}
+
+.account-changes button {
+    color: #ffffff;
+    background-color: #336699;
+    border: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.account-changes-992, .input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .my-account-info-992 {
+        display: flex;
+    }
+
+    .info-container {
+        flex: 1;
+        margin-top: 20px;
+    }
+
+    .account-changes-992 {
+        flex-direction: row;
+        /*width: 100%;*/
+        margin-bottom: 10px;
+    }
+
+    .account-changes-992 input {
+        width: 50%;
+    }
+
+    .input-group input {
+        width: 100%;
+    }
+
+    .first-input {
+        margin-right: 20px;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .wrapper-1200 {
+        min-width: 350px;
+    }
+
+}

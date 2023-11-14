@@ -1,0 +1,99 @@
+@keyframes scaleIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+}
+
+
+
+.admin-search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.admin-search-title {
+    margin-right: 8px;
+}
+
+.admin-search-container input {
+    padding-right: 30px;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border: 2px solid rgba(119, 119, 119, .17);
+    border-radius: 8px;
+    outline: transparent;
+}
+
+.admin-search-icon {
+    position: absolute;
+    right: 5px;
+    pointer-events: none;
+}
+
+.admin-searchbar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    z-index: 999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    min-width: 350px;
+    min-height: 100px;
+    border-radius: 8px;
+    background-color: #fff;
+    animation: scaleIn 0.5s ease forwards;
+
+}
+
+.admin-search-container {
+    position: relative;
+}
+
+.admin-search-title {
+    margin-top: 20px;
+}
+
+
+.overlay-show {
+    /* ... your existing styles ... */
+    animation: fadeIn 0.5s ease forwards; /* Assuming you have a fadeIn animation for the overlay */
+}
+
+/* If you want the search bar to animate out when it's closing, add a class in your JSX like 'search-closing' and define it here */
+.search-closing {
+    animation: scaleOut 0.5s ease forwards;
+}
+
+.overlay {
+    z-index: 998;
+}
+
+.overlay-show {
+    display: block;
+}
+
+.admin-searchbar {
+    z-index: 9999;
+}

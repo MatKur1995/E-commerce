@@ -1,0 +1,30 @@
+.product-list-searchbar {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.product-list-input {
+    width: 100%;
+    padding-right: 30px; /* zwiększ prawy padding, aby zrobić miejsce na ikonę */
+    padding: 4px 8px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(119,119,119,.17);
+    border-radius: 8px;
+}
+
+.product-list-searchicon {
+    position: absolute;
+    right: 10px;
+    top: 30%;
+    transform: translateY(-30%);
+    color: #ccc;
+}
+
+@media (min-width: 992px) {
+    .product-list-searchicon {
+        position: absolute;
+        right: 10px;
+        top: 28%;
+    }
+}

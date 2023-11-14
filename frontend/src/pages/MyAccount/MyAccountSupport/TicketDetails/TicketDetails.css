@@ -1,0 +1,110 @@
+.ticket-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.ticket-container {
+    position: relative;
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.close-ticket {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 22px;
+}
+
+.ticket-details-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.ticket-details-info span {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.ticket-details-date {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.ticket-details-title {
+    margin: 10px 0;
+}
+
+.content-scroll {
+    padding: 15px;
+    overflow-y: scroll; /* lub 'scroll' dla zawsze widocznego paska */
+    max-height: 280px; /* Dla przykładu, ustawia maksymalną wysokość */
+}
+
+.ticket-content-wrapper {
+    margin: 20px 0;
+}
+
+.ticket-content-username {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+}
+
+.ticket-content-username span {
+    color: #666666;
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.ticket-content-wrapper-admin {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #336699;
+    border-radius: 8px;
+}
+
+.admin-user-text {
+    color: #ffffff;
+}
+
+.admin-user {
+    margin-left: auto;
+    color: #ff0000;
+}
+
+.admin-user span {
+    color: #9a9a9a;
+}
+
+.support-reply {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.support-reply button {
+    border: none;
+    padding: 2px 6px;
+    background-color: #336699;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.support-reply textarea {
+    padding: 5px;
+    min-height: 100px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 2px solid rgba(119,119,119,.17);
+}

@@ -1,0 +1,138 @@
+
+.comments-username-time {
+    display: flex;
+    align-items: center;
+}
+
+.comment-time {
+    margin-left: 10px;
+    font-size: 11px;
+}
+
+.comment-username {
+    font-weight: 700;
+}
+
+.comments-actions {
+    margin-top: 4px;
+    display: flex;
+    
+}
+
+.comments-actions button {
+    border: none;
+    background-color: #fff;
+}
+
+.comment-reply {
+    margin-right: 10px;
+    color: rgb(134, 134, 134);
+    font-size: 12px;
+}
+
+.comment-time, .comment-username {
+    margin: 0;
+}
+
+.comment-time {
+    margin-left: 5px;
+}
+
+
+.comment-respon {
+    font-size: 12px;
+    color: rgb(134, 134, 134);
+}
+
+.comments-reply {
+    margin: 20px 0px 20px 20px;
+}
+
+.reply-username-admin {
+    color: #ff0000;
+}
+
+.form-img {
+    display: none;
+}
+
+.user-time-name-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-wrapper {
+    display: none;
+    margin-top: -50px;
+}
+.user-reply-wrapper {
+    display: none;
+}
+
+@media (min-width: 768px) {
+
+    .comments-username-time:first-of-type {
+        margin-top: 20px;
+    }
+    .form-img {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    .form-img img {
+        max-height: 80px;
+        width: auto;
+        margin-top: 8px;
+    }
+
+    .form-comment {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-left: 10px;
+    }
+
+    .form-comment textarea {
+        width: 100%;
+    }
+
+    .comment-form {
+        display: flex;
+    }
+
+    .user-avatar-wrapper {
+        display: flex;
+    }
+
+    .user-avatar-wrapper img {
+        max-height: 80px;
+    }
+
+    .comments-reply {
+        display: flex;
+    }
+
+    .user-reply-wrapper {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .user-reply-wrapper img {
+        max-height: 80px;
+    }
+
+    .comments-reply {
+        margin-top: 20px;
+        margin-left: 50px;
+        padding-right: 5px;
+    }
+
+    .comments-p {
+        margin: 0;
+    }
+
+    .comments-content p {
+        margin-top: 5px;
+    }
+
+}

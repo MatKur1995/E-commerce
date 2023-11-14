@@ -1,0 +1,123 @@
+
+header.main-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.header-title a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.header-bars, .header-bucket {
+    font-size: 26px;
+}
+
+.header-bars {
+    display: block;
+    margin-left: 15px;
+}
+
+.header-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 300;
+}
+
+.header-title span {
+    color: rgb(0, 173, 219, 1);
+}
+
+.icon-badge-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.icon-badge {
+    background-color: #369;
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+.search-header {
+    flex: 1; /* Zajmuje dostępne miejsce */
+    display: none; /* Domyślnie ukryty */
+    margin-left: 15px; /* Dodane, aby zachować odstępy */
+    margin-right: 15px; /* Dodane, aby zachować odstępy */
+}
+
+.whatsapp-support {
+    display: none;
+}
+
+
+@media (min-width: 576px) {
+
+    .main-header {
+        margin-bottom: 100px;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    .search-header {
+        display: block;
+    }
+
+    .header-bars {
+        display: none;
+    }
+
+    header.main-header {
+        padding-top: 15px;
+        padding-left: 15px; /* Dodane, aby zachować odstępy */
+        padding-right: 15px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(119,119,119,.17);
+
+    }
+
+    .main-header {
+        margin-bottom: 0;
+    }
+}
+
+
+@media (min-width: 992px) {
+
+    .whatsapp-support {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        padding-right: 10px;
+        border-right: 2px solid rgba(119,119,119,.17);
+    }
+
+    p.whatsapp-parahraph {
+        margin: 0 !important;
+    }
+
+    p.whatsapp-parahraph:nth-child{
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    p.whatsapp-parahraph:first-of-type {
+        font-size: 12px;
+    }
+
+
+    .whatsapp-icon {
+        font-size: 30px;
+    }
+
+}

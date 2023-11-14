@@ -1,0 +1,218 @@
+.shop-cart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 100%;
+}
+
+.shop-cart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.shop-cart:first-of-type {
+    margin-top: 0;
+}
+
+.shop-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 70px;
+    min-height: 70px;
+    border-radius: 50%;
+    border: 1px solid #e5e7eb;
+    padding: 5px;
+    flex: 0 0 auto;
+}
+
+.shop-icon .truck-icon, .shop-icon .money-icon, .shop-icon .shield-icon, .shop-icon .headset-icon, .shop-icon .dollar-icon {
+    font-size: 29px;
+    color: rgba(0, 173, 219, 1);
+}
+
+.shop-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+}
+
+.shop-info-title, .shop-info-content {
+    margin-left: 10px;
+    padding: 0;
+    align-self: flex-start;
+}
+
+.shop-info-title {
+    font-weight: 700;
+}
+
+.shop-info-content {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgb(156, 163, 175);
+}
+
+.banner {
+    position: relative;
+    height: auto;
+    margin-top: 15px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block; /* Zmieniamy na inline-block, aby kontener dopasowywał się do obrazka */
+}
+
+/*.banner-img {*/
+/*    max-height: 200px;*/
+/*    max-width: 400px;*/
+/*    border-radius: 10px;*/
+/*    display: block; !* Dodajemy, aby usunąć domyślny margines dolny obrazka *!*/
+/*}*/
+
+.banner-img {
+    max-height: 200px;
+    width: 100%; /* Obrazy dostosowują się do dostępnej szerokości */
+    border-radius: 10px;
+    display: block; /* Dodajemy, aby usunąć domyślny margines dolny obrazka */
+}
+
+.image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.3;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+@media (min-width: 576px) {
+    .banner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: auto;
+        margin-top: 15px;
+        /*margin: auto;*/
+    }
+
+    .banner-img {
+        max-height: 20%;
+        min-width: 100%;
+        /*max-width: 80%;*/
+        border-radius: 10px;
+    }
+
+    .shop-cart-container {
+        margin-top: -60px;
+    }
+
+    .image-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        opacity: 0.3;
+        z-index: 1;
+        border-radius: 10px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .banner-img {
+        min-width: 70vw;
+    }
+
+    .shop-cart-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .shop-cart {
+        width: calc(50% - 20px); /* Uwzględniając marginesy */
+        margin: 5px;
+    }
+
+
+
+}
+
+
+@media (min-width: 992px) {
+
+    .banner-img {
+        min-width: 10%;
+    }
+
+    .banner, .image-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .banner, .image-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .banner-img {
+        flex: 1; /* Obrazy zajmują równą przestrzeń w kontenerze */
+        max-width: 50%; /* Każdy obraz ma maksymalnie 50% szerokości kontenera */
+    }
+
+    .shop-cart-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .shop-cart {
+        width: calc(50% - 20px); /* Uwzględniając marginesy */
+        margin: 5px;
+    }
+
+    .shop-cart-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .shop-cart {
+        width: calc(33.3333% - 10px); /* Uwzględniając marginesy */
+        margin: 5px;
+    }
+
+
+
+}

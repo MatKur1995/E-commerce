@@ -1,0 +1,76 @@
+div.wrapper-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+    background-color: #000000;
+    border-top: 1px solid #333333;
+    padding: 10px 30px;
+}
+
+.footer-title, p.email, p.phone {
+    color: #ffffff;
+}
+
+.footer-title {
+    text-align: start;
+}
+
+.links-container a{
+    color: rgba(156 163 175);
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.footer-links {
+    text-align: start;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    font-size: 13px;
+    /*justify-content: center;*/
+}
+
+.useful-link {
+    color: rgba(156 163 175);
+    margin-bottom: 0px;
+}
+
+
+.wrapper-email, .wrapper-phone {
+    display: flex;
+    margin-top: 10px;
+}
+
+.footer-icon {
+    font-size: 18px;
+    margin-right: 10px;
+    color: rgba(0, 173, 219, 1);
+}
+
+p.email, p.phone {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+
+@media (min-width: 576px) {
+    div.wrapper-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* Opcjonalnie, jeśli chcesz, aby były rozstawione na całej szerokości */
+    }
+
+
+    .wrapper-footer .footer-links {
+        flex: 1; /* Każdy z nich zajmuje połowę dostępnego miejsca */
+    }
+
+    .wrapper-footer .footer-info {
+        flex: 2;
+    }
+}
+

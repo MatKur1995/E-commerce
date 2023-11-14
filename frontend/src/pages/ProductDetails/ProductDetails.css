@@ -1,0 +1,251 @@
+/* Stylowanie samego inputa */
+.number-input {
+    width: 100px; /* Szerokość */
+    padding: 8px; /* Wewnętrzny odstęp */
+    border: 2px solid #336699; /* Kolor obramowania */
+    border-radius: 4px; /* Zaokrąglenie rogu */
+    font-size: 16px; /* Wielkość czcionki */
+    color: #333; /* Kolor tekstu */
+    background-color: #f5f5f5; /* Kolor tła */
+    outline: none; /* Usunięcie podświetlenia podczas aktywacji */
+}
+
+/* Stylowanie strzałek w input */
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    appearance: none; /* Ukrycie domyślnych strzałek w przeglądarkach bazujących na WebKit */
+}
+
+/* Stylowanie podczas fokusu (kiedy input jest aktywowany) */
+.number-input:focus {
+    border-color: #6699cc; /* Kolor obramowania podczas fokusu */
+    background-color: #e6f2ff; /* Kolor tła podczas fokusu */
+}
+
+.prod-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    margin-top: 60px;
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.prod-img img {
+    max-width: 250px;
+    max-height: 220px;
+    margin-top: 30px;
+}
+
+.prod-title {
+    font-size: 24px;
+}
+
+.prod-rate {
+    display: flex;
+    flex-direction: row;
+}
+
+.product-button {
+    margin-left: auto;
+}
+
+.prod-price-cont {
+    display: flex;
+}
+
+.prod-price {
+    display: block;
+    padding: 5px;
+    border-radius: 10px;
+    margin-right: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-size: 20px;
+}
+
+.prod-price-before {
+    color: #0082ff;
+    text-decoration: line-through;
+}
+
+.prod-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.prod-add, .prod-wishlist {
+    border: none;
+    background-color: #336699;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.prod-wishlist {
+    font-size: 16px;
+}
+
+.prod-categories {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border-top: 2px solid rgba(119, 119, 119, .17);
+}
+
+.prod-categories p {
+    margin: 10px 0 0 0;
+    font-weight: 700;
+}
+
+.prod-categories p span {
+    font-weight: 500;
+}
+
+.prod-long-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-long-title, .comments-title {
+    font-size: 24px;
+    margin: 20px 0 10px 0;
+    border-bottom: 2px solid rgba(119, 119, 119, .17);
+    color: #336699;
+}
+
+.comments-and-reviews {
+    display: flex;
+    justify-content: center;
+}
+
+.comments-and-reviews button {
+    padding: 5px 10px;
+    width: 100%;
+    background-color: #e5e7eb;
+    border: none;
+}
+
+.comments-and-reviews button {
+    padding: 8px 10px;
+    width: 100%;
+    background-color: #e5e7eb;
+    border: none;
+}
+
+.comments-and-reviews .active-button {
+    border-top: 3px solid #336699;
+    background-color: #fff;
+}
+
+.form-comment {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.form-comment textarea {
+    min-height: 100px;
+    border: 2px solid rgba(119, 119, 119, .17);
+    border-radius: 10px;
+    padding: 10px;
+    outline: transparent;
+}
+
+.form-comment button, .rate-button {
+    width: 40%;
+    margin-top: 20px;
+    padding: 8px 10px;
+    border: none;
+    background-color: #336699;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.comments-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.links-nav {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.homelink {
+    text-decoration: none;
+    color: rgba(119, 119, 119, 1);
+    margin-left: 5px;
+    font-weight: 300;
+}
+
+.homelink:last-of-type {
+    font-weight: 700;
+}
+
+.arrow-nav {
+    margin: 0 5px;
+    color: #0082ff;
+}
+
+
+@media (min-width: 576px) {
+
+    .prod-actions {
+        justify-content: flex-start;
+    }
+
+    .prod-add {
+        margin: 0 10px;
+    }
+
+    .prod-details {
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .test00 {
+        display: flex;
+    }
+
+    .prod-details {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+    }
+
+    .wrapper-768 {
+        display: flex;
+    }
+
+    .prod-img {
+        min-width: 300px;
+        margin-top: 30px;
+    }
+
+    .prod-title {
+        margin-top: 30px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .prod-img {
+        min-width: 450px;
+    }
+
+    .prod-img img {
+        min-height: 300px;
+    }
+}

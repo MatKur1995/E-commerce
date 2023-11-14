@@ -1,0 +1,382 @@
+
+.dashboard-wrapper {
+    display: flex;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+.admin-dashboard {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.admin-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.admin-dashboard-pending,
+.admin-dashboard-completed,
+.admin-dashboard-cancelled,
+.admin-dashboard-money
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.admin-dashboard-pending {
+    background-color: #ff9505;
+}
+
+.admin-dashboard-completed {
+    background-color: #2ecc71;
+}
+
+.admin-dashboard-cancelled {
+    background-color: #e74c3c;
+}
+
+.admin-dashboard-money {
+    background-color: rgba(85, 212, 71, 1);
+}
+
+.admin-dashboard-p {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.admin-dashboard-p span {
+    font-weight: 700;
+}
+
+.clock-pending,
+.check-completed,
+.x-cancelled,
+.today-money
+{
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.admin-nav {;
+    width: 50px;
+    height: 100%;
+    background-color: #23395d;
+    transition: all 0.3s ease;
+}
+
+.nav-items {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.nav-item a:hover,
+.nav-item a:focus {
+    background-color: #2c3e50;
+}
+
+.dashboard-orders-title {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.status-completed, .status-pending, .status-closed {
+    background-color: #8be135;
+    color: #ffffff;
+    padding: 2px 4px;
+    border-radius: 8px;
+}
+
+.status-pending {
+    background-color: #9f6827;
+    color: #ffffff;
+}
+
+.status-closed {
+    background-color: rgba(254, 202, 202, 1);
+    color: #ffffff;
+}
+
+
+.orders-table-container-mobile {
+    margin-top: 20px;
+}
+
+.order-entry-mobile {
+    background-color: rgba(255, 255, 255, 0.8); /* Przezroczystość dla tła każdego wpisu zamówienia */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 20px 5px;
+    overflow-x: auto; /* Dla przewijania na szerszych ekranach */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-detail-mobile {
+    display: flex;
+    justify-content: space-between; /* Rozdziela klucze i wartości */
+    margin-bottom: 5px;
+}
+
+.orders-table-container {
+    display: none;
+}
+
+
+.dashboard-wrapper {
+    display: flex;
+}
+
+.admin-dashboard {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.orders-table-container {
+    /*background-color: rgba(255, 255, 255, 0.5); !* Przezroczystość *!*/
+    overflow-x: auto; /* Zapewnia poziome przewijanie */
+    /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); !* Lekki cień dla głębi *!*/
+    /*border-radius: 8px; !* Zaokrąglenie rogów kontenera *!*/
+    margin: 20px 10px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse; /* Usuwa odstępy między komórkami */
+}
+
+.orders-table thead tr {
+    background-color: rgba(0, 0, 0, 0.05); /* Lekkie tło dla nagłówka tabeli */
+}
+
+.orders-table th,
+.orders-table td {
+    /*border: 1px solid #ddd; !* Linie oddzielające komórki *!*/
+    padding: 8px; /* Odstępy wewnątrz komórek */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+}
+
+.dashboard-users {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #ffffff; /* Jasne tło dla kontrastu */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Delikatny cień dla głębi */
+}
+
+.dashboard-users-weekly {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f5f7fa; /* Lekko różniące się tło dla każdej sekcji */
+    transition: background-color 0.3s ease-in-out;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bardziej subtelny cień */
+}
+
+.dashboard-users-weekly i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #336699; /* Kolor ikon dostosowany do schematu kolorów */
+}
+
+.dashboard-users-weekly span {
+    font-weight: 700;
+    margin-left: auto;
+    padding: 5px 10px;
+    background-color: #336699;
+    color: white;
+    border-radius: 20px;
+}
+
+.dashboard-users-weekly:hover {
+    background-color: #e6eaf0; /* Zmiana tła przy najechaniu */
+}
+
+.dashboard-lastupdate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff; /* Jasne tło dla kontrastu */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Delikatny cień dla głębi */
+    padding: 10px;
+    margin: 10px;
+}
+
+.dashboard-title a {
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    color: #222222;
+}
+
+.dashboard-comment {
+    font-size: 11px;
+}
+
+.dashboard-avatar-container {
+    border-radius: 50%;
+    max-height: 40px;
+    margin: 0 10px;
+}
+
+.dashboard-avatar-container img {
+    max-height: 40px;
+    border-radius: 50%;
+}
+
+.dashboard-singlecomment {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dashboard-comment-date {
+    display: flex;
+    font-size: 12px;
+    color: #9a9a9a;
+    align-items: flex-start; /* Centrowanie w pionie */
+    margin-top: 5px;
+}
+
+
+.dashboard-comment-date i {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+
+
+@media (min-width: 768px) {
+
+    .orders-table-container {
+        display: block;
+    }
+
+    .orders-table-container-mobile {
+        overflow-x: auto; /* Dodaje poziome przewijanie dla kontenera */
+        display: none;
+    }
+
+    .order-entry-mobile {
+        display: table; /* Używa wyglądu tabeli */
+        width: 100%;
+        table-layout: fixed; /* Zapobiega rozszerzaniu się tabeli */
+    }
+
+    .order-detail-mobile {
+        display: table-row; /* Każdy szczegół wygląda jak wiersz tabeli */
+    }
+
+    .order-detail-mobile b {
+        display: table-cell; /* Formatowanie dla "kluczy" */
+        padding-right: 10px; /* Odstęp między kluczem a wartością */
+    }
+
+    .order-detail-mobile:after {
+        content: ''; /* Usuwa dodatkowe miejsce po elementach */
+        display: table-cell; /* Formatowanie dla wartości */
+    }
+
+    .admin-dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Rozkłada karty równomiernie z zachowaniem przestrzeni po bokach */
+    }
+
+    .admin-dashboard > div {
+        width: calc(50% - 10px); /* Dwa elementy na linii, minus margines */
+        margin-bottom: 20px; /* Odstęp między kartami w pionie */
+    }
+
+    .orders-table-container-mobile {
+        display: none; /* Ukryj mobilny widok tabeli */
+    }
+
+    .orders-table-container {
+        display: block; /* Pokaż standardową tabelę */
+    }
+}
+
+.dashboard-last-update-p {
+    font-weight: 300;
+}
+
+.test999 {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.admin-nav-wrapper {
+    display: flex;
+    background-color: #333333;
+}
+
+@media (min-width: 1200px) {
+    .admin-dashboard > div {
+        width: calc(25% - 10px); /* Cztery elementy na linii, minus margines */
+    }
+}
+
+
+@media (min-width: 992px) {
+    .dashboard-activity-container {
+        display: flex;
+        flex: 1;
+    }
+
+    .dashboard-lastupdate {
+        flex: 1;
+    }
+
+    .dashboard-users {
+        flex: 1;
+    }
+
+    .status-completed, .status-pending, .status-closed {
+        background-color: #8be135;
+        color: #ffffff;
+        /*padding: 2px 4px;*/
+        border-radius: 8px;
+        max-width: 100px;
+    }
+
+    .status-pending {
+        background-color: #9f6827;
+        color: #ffffff;
+        max-width: 80px;
+    }
+
+    .status-closed {
+        background-color: rgba(254, 202, 202, 1);
+        color: #ffffff;
+        max-width: 70px;
+    }
+}
+

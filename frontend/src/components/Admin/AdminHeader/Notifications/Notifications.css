@@ -1,0 +1,75 @@
+@keyframes slideInNotiFromRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideNotiOutToRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+.notification-open {
+    animation: slideInNotiFromRight 0.5s ease-out forwards;
+}
+
+.notification-closed{
+    animation: slideNotiOutToRight 0.5s ease-out forwards;
+}
+
+.notifications-wrapper {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0; /* Start from the right side */
+    bottom: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+}
+
+.notifications-title-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* ... rest of your CSS ... */
+
+
+.notifications-title {
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.notifications-close {
+    font-size: 22px;
+    margin-top: 4px;
+    margin-left: auto;
+}
+
+.order-notification img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+.orders-notifications-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.order-notification {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(119, 119, 119, .17);
+}
+
+.notification-info-wrapper p:first-of-type {
+    font-weight: 700;
+}
+
+.notification-info-wrapper p {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 300;
+}

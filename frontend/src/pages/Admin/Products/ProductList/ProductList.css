@@ -1,0 +1,156 @@
+
+.product-list-wrapper {
+    margin: 10px;
+    flex-grow: 1;
+}
+
+.product-wrapper {
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+}
+
+.product-key-value {
+    display: flex;
+}
+
+.product-key {
+    font-weight: 700;
+}
+
+.product-key, .product-value {
+    margin: 10px 0;
+}
+
+.product-value {
+    margin-left: auto;
+}
+
+.product-value img {
+    max-width: 50px;
+}
+
+.product-actions {
+    display: flex;
+}
+
+.product-actions button {
+    padding: 4px 8px;
+}
+
+.product-edit, .product-del {
+    border: none;
+}
+
+.product-edit {
+    margin-right: 10px;
+    background-color: #8be135;
+    color: #ffffff;
+}
+
+.product-del {
+    color: #ffffff;
+    background-color: #de0000;
+}
+
+.product-list-contaainer-mobile {
+    display: flex;
+    width: 100%;
+}
+
+
+.products-container-desktop {
+    display: none;
+}
+
+.product-discount {
+    border: none;
+    margin-left: 10px;
+    background-color: #fff;
+    font-size: 20px;
+}
+
+
+.product-wrapper-desktop {
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 992px) {
+
+    .header-product-list button {
+        padding: 4px 6px;
+        border: none;
+        background-color: #e74c3c;
+    }
+
+    .header-product-list button a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 14px;
+    }
+
+    .product-list-contaainer-mobile {
+        display: none;
+    }
+
+
+    .products-container-desktop {
+        display: flex;
+        width: 100%;
+        padding: 16px;
+        background-color: #fff;
+    }
+
+    .header-product-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .table-product-list {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    td.outofstock {
+        color: #ff0000;
+    }
+
+    .table-action-del {
+        color: #ffffff;
+        background-color: #de0000;
+        padding: 2px 4px;
+    }
+
+    .table-action-edit, .table-action-del {
+        border: none;
+    }
+
+    .table-action-edit {
+        background-color: #8be135;
+        color: #ffffff;
+        padding: 2px 4px;
+        margin-right: 10px;
+    }
+
+    .product-desktop-wrapper {
+        margin-right: 10px;
+        flex-grow: 1;
+    }
+
+}
+
+
+

@@ -1,0 +1,166 @@
+.my-orders-container {
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.my-orders-wrapper {
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    padding: 10px;
+}
+
+.my-orders-searchbar {
+    position: relative;
+    display: inline-block;
+}
+
+.my-orders-searchbar input {
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-left: 5px;
+    border-radius: 8px;
+    border: 2px solid rgba(119,119,119,.17);
+    width: 100%;
+    margin: auto;
+}
+
+
+.search-order {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.my-orders-title {
+    align-self: start;
+    font-size: 20px;
+}
+
+.order-status {
+    display: flex;
+}
+
+.order-status-processing, .order-status-completed, .order-status-cancelled {
+    background-color: #fff;
+    border: none;
+    margin-left: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.order-status-processing {
+    color: #9f6827;
+}
+
+.order-status-completed {
+    color: #8be135;
+}
+
+.order-status-cancelled {
+    color: #ff0000;
+}
+
+.single-order-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+}
+
+.single-order-wrapper img {
+    max-height: 100px;
+    max-width: 80px;
+}
+
+.single-order-p {
+    font-size: 20px;
+}
+
+.single-order-time {
+    font-size: 12px;
+}
+
+.single-order-id {
+    display: flex;
+    flex-direction: column;
+    color: #696969;
+    font-size: 12px;
+}
+
+.single-order-id span {
+    color: #222222;
+}
+
+.single-order-payment {
+    display: flex;
+    flex-direction: column;
+    color: #696969;
+    font-size: 12px;
+}
+
+.single-order-payment span {
+    font-size: 17px;
+}
+
+.single-order-wrapper p {
+    margin-top: 5px;
+}
+
+.order-status- {
+    margin-left: auto;
+}
+
+/*.order-status- button {*/
+/*    background-color: #8be135;*/
+/*    border: none;*/
+/*    padding: 5px 10px;*/
+/*    border-radius: 8px;*/
+/*    color: #ffffff;*/
+/*}*/
+
+.order-status-btn-completed, .order-status-btn-processing, .order-status-btn-cancelled {
+    border: none;
+    padding: 2px 4px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.order-status-btn-completed {
+    background-color: #8be135;
+    color: #ffffff;
+}
+
+.order-status-btn-processing {
+    background-color: #9f6827;
+    color: #ffffff;
+}
+
+.order-status-btn-cancelled {
+    background-color: rgba(254, 202, 202, 1);
+    color: #ffffff;
+}
+
+@media (min-width: 992px) {
+
+    .my-orders-container {
+        display: flex;
+    }
+
+    .my-orders-wrapper {
+        flex: 1;
+    }
+
+    .order-wrapper-992 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .order-wrapper-992 img {
+        margin-top: 10px;
+        margin-right: 30px;
+    }
+
+}

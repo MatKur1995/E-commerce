@@ -1,0 +1,175 @@
+.bucket-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    min-width: 75%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: #fff;
+    z-index: 999;
+    padding: 30px;
+}
+
+.close-bucket {
+    display: flex;
+}
+
+.close-bucket {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.bucket-item {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+    padding: 15px 0px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.item-img {
+    max-width: 100px;
+    max-height: 80px;
+}
+
+.item-container {
+    position: relative;
+    margin-right: 10px;
+}
+
+.item-title {
+    text-decoration: none;
+    color: #333;
+}
+
+.bucket-title {
+    font-weight: 700;
+}
+
+.bucket-close {
+    font-size: 20px;
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.item-amount {
+    margin-top: 35px;
+    color: #666;
+}
+
+.delete-item {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.bucket-total-price {
+    display: flex;
+    margin-top: 10px;
+}
+
+.bucket-total-price p{
+    display: block;
+}
+
+.total {
+    font-weight: 700;
+}
+
+.total-amount {
+    margin-left: auto;
+    color: #666;
+}
+
+.bucket-buttons {
+    display: flex;
+}
+
+.bucket-buttons button {
+    min-width: 100px;
+    min-height: 35px;
+    margin-top: 10px;
+}
+
+.bucket-buttons .pay {
+    margin-left: auto;
+}
+
+.clear-bucket {
+    background-color: transparent;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 0 2px;
+}
+
+.pay {
+    color: #ffffff;
+    background-color: rgb(0, 173, 219, 1);
+    border: 1px solid rgb(0, 173, 219, 1);
+    border-radius: 5px;
+}
+
+@media (min-width: 576px) {
+
+    .item-img {
+        max-width: 150px;
+        max-height: 130px;
+    }
+
+    .item-container {
+        margin-right: 30px;
+    }
+
+    .bucket-container {
+        min-width: 60%;
+    }
+
+    .bucket-buttons {
+        width: 80%;
+        display: flex;
+        margin: auto;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .item-img {
+        max-width: 100px;
+        max-height: 130px;
+    }
+
+    .bucket-container {
+        min-width: 50%;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .item-img {
+        max-width: 120px;
+        max-height: 180px;
+    }
+
+    .item-container {
+        margin-right: 30px;
+    }
+
+    .bucket-container {
+        min-width: 30%;
+
+    }
+    .bucket-buttons {
+        width: 80%;
+        display: flex;
+        margin: auto;
+    }
+
+    .item-amount {
+        /*padding-right: 35px;*/
+        color: #666;
+    }
+
+}
