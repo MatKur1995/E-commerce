@@ -25,7 +25,7 @@ import {Users} from "./pages/Admin/Users/Users";
 
 
 function App() {
-    const location = useLocation(); // używając hooka useLocation
+    const location = useLocation();
     const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
@@ -58,7 +58,3 @@ function App() {
 }
 
 export default App;
-
-// /test
-
-// fasdsakfjsal

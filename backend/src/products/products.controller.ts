@@ -1,61 +1,78 @@
-import {Controller, Post, UseInterceptors, UploadedFile, Body, Get, Query} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ProductService } from './services/product.service';
-import { CreateProductDto } from './create-product.dto';
-import { diskStorage } from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import {
+    Controller,
+    Get,
+    Query,
+    Post,
+    Body,
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
+import {FileInterceptor} from '@nestjs/platform-express';
+import {ProductService} from './services/product.service';
+import {CreateProductDto} from './create-product.dto';
+import {Product} from './entities/product.entity';
+import {diskStorage} from 'multer';
+import {v4 as uuidv4} from 'uuid';
 import * as path from 'path';
-import {Product} from "./entities/product.entity";
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productService: ProductService) {}
+    constructor(private readonly productService: ProductService) {
+    }
 
     @Post()
     @UseInterceptors(FileInterceptor('image', {
         storage: diskStorage({
-            destination: './uploads/products-images', // ścieżka, gdzie obrazy będą zapisywane
+            destination: './uploads/products-images',
             filename: (req, file, callback) => {
                 const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
                 const extension: string = path.parse(file.originalname).ext;
-                callback(null, `${filename}${extension}`)
-            }
-        })
+                callback(null, `${filename}${extension}`);
+            },
+        }),
     }))
-
     async createProduct(
         @Body() createProductDto: CreateProductDto,
-        @UploadedFile() file: Express.Multer.File
-    ) {
-        if (file && file.filename) {
-            createProductDto.image = file.filename;
-        }
-        return this.productService.create(createProductDto);
+        @UploadedFile() file: Express.Multer.File,
+    ): Promise<Product> {
+        const image = file?.filename || null;
+        return this.productService.create({...createProductDto, image});
     }
 
     @Get()
-    findAll(
+    async findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 5,
+        @Query('sort') sort: string,
         @Query('categories') categories?: string | string[],
         @Query('brands') brands?: string | string[],
         @Query('search') search?: string,
-        @Query('minPrice') minPrice?: string,
-        @Query('maxPrice') maxPrice?: string,
-        @Query('sort') sort?: string
-    ): Promise<Product[]> {
-        const min = minPrice ? Number(minPrice) : null;
-        const max = maxPrice ? Number(maxPrice) : null;
+    ): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
+        const categoriesArray = typeof categories === 'string' ? categories.split(',') : categories;
+        const brandsArray = typeof brands === 'string' ? brands.split(',') : brands;
         return this.productService.getFilteredProducts({
-            categories: Array.isArray(categories) ? categories : categories?.split(',') || [],
-            brands: Array.isArray(brands) ? brands : brands?.split(',') || [],
+            page,
+            limit,
+            sort,
+            categories: categoriesArray,
+            brands: brandsArray,
             search,
-            minPrice: min as number | null,
-            maxPrice: max as number | null,
-            sort
         });
     }
 
+    @Get('hot-deals')
+    async findHotDeals(): Promise<Product[]> {
+        return this.productService.findHotDeals();
+    }
 
+    @Post('hot-deals')
+    async toggleHotDeals(@Body('id') productId: number): Promise<Product> {
+        return this.productService.toggleHotDeals(productId);
+    }
 
-
+    @Get('non-hot-deals')
+    async findNonHotDeals(): Promise<Product[]> {
+        return this.productService.findNonHotDeals();
+    }
 
 }

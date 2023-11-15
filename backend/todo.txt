@@ -1,0 +1,17 @@
+Karuzela na stronie głównej
+    - hot deals w admin panel
+
+Kategorie na stronie głównej
+    - po naciśnięciu przekierowuje na product list z kategoria
+
+Zarządanie bannerem na stronie głównej?
+
+Paginacja na product list. - done
+
+
+Profil użytkownika (Zastanowić się w jaki sposób przechowywać tn global content)
+    - Koszyk
+    - My profile - uzupełnić dane
+    - Wish list
+    - Orders
+    - Kody rabatowe

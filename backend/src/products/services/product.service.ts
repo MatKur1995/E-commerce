@@ -21,49 +21,85 @@ export class ProductService {
         }
     }
 
-    async getFilteredProducts(filterOptions: {
-        categories?: string[];
-        brands?: string[];
-        search?: string;
-        minPrice?: number | null;
-        maxPrice?: number | null;
-        sort?: string;
-    }): Promise<Product[]> {
+    async getFilteredProducts(options: {
+        page: number,
+        limit: number,
+        sort?: string,
+        categories?: string[],
+        brands?: string[],
+        search?: string,
+        minPrice?: number, // Add this
+        maxPrice?: number, // And this
+    }): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
+        const { page, limit, sort, categories, brands, search, minPrice, maxPrice } = options;
+
         const queryBuilder = this.productRepository.createQueryBuilder('product');
 
-        if (filterOptions.categories && filterOptions.categories.length > 0) {
-            queryBuilder.andWhere('product.category IN (:...categories)', { categories: filterOptions.categories });
+        if (categories && categories.length > 0) {
+            queryBuilder.andWhere('product.category IN (:...categories)', {
+                categories,
+            });
         }
 
-        if (filterOptions.brands && filterOptions.brands.length > 0) {
-            queryBuilder.andWhere('product.brand IN (:...brands)', { brands: filterOptions.brands });
+        if (brands && brands.length > 0) {
+            queryBuilder.andWhere('product.brand IN (:...brands)', {
+                brands,
+            });
         }
 
-        if (filterOptions.search) {
-            queryBuilder.andWhere(
-                'product.title LIKE :search',
-                { search: `%${filterOptions.search}%` }
-            );
+        if (search) {
+            queryBuilder.andWhere('product.title LIKE :search', {
+                search: `%${search}%`,
+            });
         }
 
-        if (filterOptions.minPrice !== null) {
-            queryBuilder.andWhere('product.price >= :minPrice', { minPrice: filterOptions.minPrice });
+        if (minPrice !== undefined) {
+            queryBuilder.andWhere('product.price >= :minPrice', { minPrice });
         }
 
-        if (filterOptions.maxPrice !== null) {
-            queryBuilder.andWhere('product.price <= :maxPrice', { maxPrice: filterOptions.maxPrice });
+        if (maxPrice !== undefined) {
+            queryBuilder.andWhere('product.price <= :maxPrice', { maxPrice });
         }
 
-        if (filterOptions.sort) {
-            const sortOrder = filterOptions.sort === 'lower-price' ? 'ASC' : 'DESC';
+        if (sort) {
+            const sortOrder = sort === 'lower-price' ? 'ASC' : 'DESC';
             queryBuilder.orderBy('product.price', sortOrder);
         }
 
-        return queryBuilder.getMany();
+        const [data, total] = await queryBuilder
+            .skip((page - 1) * limit)
+            .take(limit)
+            .getManyAndCount();
+
+        return {
+            data,
+            total,
+            page,
+            limit,
+        };
     }
+
 
 
     async findAll(): Promise<Product[]> {
         return this.productRepository.find();
+    }
+
+    async findHotDeals(): Promise<Product[]> {
+        return this.productRepository.find({ where: { hotDeal: true } });
+    }
+
+    async findNonHotDeals(): Promise<Product[]> {
+        return this.productRepository.find({ where: { hotDeal: false } });
+    }
+
+
+    async toggleHotDeals(productId): Promise<Product> {
+        const product = await this.productRepository.findOne({where: {id: productId}});
+        if (product) {
+            product.hotDeal = !product.hotDeal;
+            await this.productRepository.save(product);
+        }
+        return product;
     }
 }
