@@ -39,6 +39,35 @@ export const ProductDetails = () => {
         fetchData();
     }, []);
 
+    const handleAddToCart = async (productId: number, quantity: number) => {
+        try {
+            // Pobierz token JWT z localStorage
+            const token = localStorage.getItem('token');
+
+            // Sprawdź, czy token istnieje przed wysłaniem żądania
+            if (!token) {
+                console.error('No token found! User must be logged in to add items to the basket.');
+                return;
+            }
+
+            await axios.post('http://localhost:5000/basket/add', {
+                productId,
+                quantity
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}` // Dołącz token JWT w nagłówkach
+                }
+            });
+
+            // Jeśli nie ma błędów, możesz zaktualizować stan UI lub wykonać inne akcje
+            console.log('Product added to basket successfully');
+        } catch (error) {
+            console.error('Error adding item to basket:');
+        }
+    };
+
+
+
 
 
     return (
@@ -79,7 +108,7 @@ export const ProductDetails = () => {
                             </div>
                             <div className="prod-actions">
                                 <input className="number-input" type="number" min="0" max="100" step="1" value="50"/>
-                                <button className="prod-add">ADD TO CART</button>
+                                <button onClick={() => handleAddToCart(productDetails.id, 1)} className="prod-add">ADD TO CART</button>
                                 <button className="prod-wishlist"><i className="fa-regular fa-heart"></i></button>
                             </div>
                             <div className="prod-categories">

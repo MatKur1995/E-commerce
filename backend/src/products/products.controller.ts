@@ -1,78 +1,80 @@
 import {
-    Controller,
-    Get,
-    Query,
-    Post,
-    Body,
-    UploadedFile,
-    UseInterceptors,
+  Controller,
+  Get,
+  Query,
+  Post,
+  Body,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import {FileInterceptor} from '@nestjs/platform-express';
-import {ProductService} from './services/product.service';
-import {CreateProductDto} from './create-product.dto';
-import {Product} from './entities/product.entity';
-import {diskStorage} from 'multer';
-import {v4 as uuidv4} from 'uuid';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ProductService } from './services/product.service';
+import { CreateProductDto } from './create-product.dto';
+import { Product } from './entities/product.entity';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productService: ProductService) {
-    }
+  constructor(private readonly productService: ProductService) {}
 
-    @Post()
-    @UseInterceptors(FileInterceptor('image', {
-        storage: diskStorage({
-            destination: './uploads/products-images',
-            filename: (req, file, callback) => {
-                const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
-                const extension: string = path.parse(file.originalname).ext;
-                callback(null, `${filename}${extension}`);
-            },
-        }),
-    }))
-    async createProduct(
-        @Body() createProductDto: CreateProductDto,
-        @UploadedFile() file: Express.Multer.File,
-    ): Promise<Product> {
-        const image = file?.filename || null;
-        return this.productService.create({...createProductDto, image});
-    }
+  @Post()
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './uploads/products-images',
+        filename: (req, file, callback) => {
+          const filename: string =
+            path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+          const extension: string = path.parse(file.originalname).ext;
+          callback(null, `${filename}${extension}`);
+        },
+      }),
+    }),
+  )
+  async createProduct(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Product> {
+    const image = file?.filename || null;
+    return this.productService.create({ ...createProductDto, image });
+  }
 
-    @Get()
-    async findAll(
-        @Query('page') page: number = 1,
-        @Query('limit') limit: number = 5,
-        @Query('sort') sort: string,
-        @Query('categories') categories?: string | string[],
-        @Query('brands') brands?: string | string[],
-        @Query('search') search?: string,
-    ): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
-        const categoriesArray = typeof categories === 'string' ? categories.split(',') : categories;
-        const brandsArray = typeof brands === 'string' ? brands.split(',') : brands;
-        return this.productService.getFilteredProducts({
-            page,
-            limit,
-            sort,
-            categories: categoriesArray,
-            brands: brandsArray,
-            search,
-        });
-    }
+  @Get()
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 5,
+    @Query('sort') sort: string,
+    @Query('categories') categories?: string | string[],
+    @Query('brands') brands?: string | string[],
+    @Query('search') search?: string,
+  ): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
+    const categoriesArray =
+      typeof categories === 'string' ? categories.split(',') : categories;
+    const brandsArray = typeof brands === 'string' ? brands.split(',') : brands;
+    return this.productService.getFilteredProducts({
+      page,
+      limit,
+      sort,
+      categories: categoriesArray,
+      brands: brandsArray,
+      search,
+    });
+  }
 
-    @Get('hot-deals')
-    async findHotDeals(): Promise<Product[]> {
-        return this.productService.findHotDeals();
-    }
+  @Get('hot-deals')
+  async findHotDeals(): Promise<Product[]> {
+    return this.productService.findHotDeals();
+  }
 
-    @Post('hot-deals')
-    async toggleHotDeals(@Body('id') productId: number): Promise<Product> {
-        return this.productService.toggleHotDeals(productId);
-    }
+  @Post('hot-deals')
+  async toggleHotDeals(@Body('id') productId: number): Promise<Product> {
+    return this.productService.toggleHotDeals(productId);
+  }
 
-    @Get('non-hot-deals')
-    async findNonHotDeals(): Promise<Product[]> {
-        return this.productService.findNonHotDeals();
-    }
-
+  @Get('non-hot-deals')
+  async findNonHotDeals(): Promise<Product[]> {
+    return this.productService.findNonHotDeals();
+  }
 }
