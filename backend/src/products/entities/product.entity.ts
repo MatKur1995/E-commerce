@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column,  OneToMany } from 'typeorm';
+import { Comment } from '../../comments/entities/comments.entity';
 
 @Entity()
 export class Product {
@@ -19,6 +20,10 @@ export class Product {
 
   @Column()
   image: string;
+
+  @OneToMany(() => Comment, comment => comment.product)
+  comments: Comment[];
+
 
   @Column({
     type: 'int',

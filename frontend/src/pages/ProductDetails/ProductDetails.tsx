@@ -28,6 +28,8 @@ export const ProductDetails = () => {
         setQuantity(newQuantity);
     };
 
+    console.log(productDetails);
+
     const ShowContent = () => {
         if (activeComment) {
             setActiveReviews(true)
@@ -37,7 +39,6 @@ export const ProductDetails = () => {
             setActiveReviews(false)
         }
     }
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -156,7 +157,7 @@ export const ProductDetails = () => {
                             <button onClick={ShowContent} className={`${activeReviews ? 'active-button comments' : 'comments'}`}>Reviews</button>
                         </div>
                         <div className="comments-user">
-                            {activeComment && <UsersComments activeComment={activeComment}/> }
+                            {activeComment && <UsersComments productDetails={productDetails} setProductDetails={setProductDetails} activeComment={activeComment}/> }
                         </div>
                         <div className="rates-users">
                             {activeReviews && <UsersReview activeReviews={activeReviews}/>}

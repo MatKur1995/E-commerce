@@ -12,6 +12,16 @@ export class ProductDetailsService {
 
   // service
   async findOne(id: number): Promise<Product | undefined> {
-    return this.productRepository.findOne({ where: { id } });
+    return this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.comments', 'comment')
+      .leftJoinAndSelect('comment.user', 'user') // Dołączenie użytkownika, który dodał komentarz
+      .select([
+        'product',
+        'comment.id', 'comment.content', // Wybierasz tylko te kolumny z komentarza, które są potrzebne
+        'user.id', 'user.username' // Wybierasz tylko ID i username użytkownika
+      ])
+      .where('product.id = :id', { id: id })
+      .getOne();
   }
 }

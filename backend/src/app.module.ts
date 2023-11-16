@@ -12,6 +12,10 @@ import { ProductDetailsService } from './product-details/product-details.service
 import { BasketController } from './basket/basket.controller';
 // import { BasketService } from './basket/services/basket.service';
 import { BasketModule } from './basket/basket.module';
+import { CommentsController } from './comments/comments.controller';
+import { CommentsService } from './comments/service/comments.service';
+import { CommentsModule } from './comments/comments.module';
+
 
 @Module({
   imports: [
@@ -28,7 +32,8 @@ import { BasketModule } from './basket/basket.module';
     TypeOrmModule.forFeature([Product]),
     UsersModule,
     AuthModule,
-    BasketModule, //
+    BasketModule,
+    CommentsModule, //
   ],
   controllers: [
     AppController,

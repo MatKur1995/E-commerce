@@ -1,8 +1,9 @@
 // src/users/user.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
+import { Comment } from '../../comments/entities/comments.entity';
 
 @Entity()
 export class User {
@@ -15,8 +16,12 @@ export class User {
   @Column()
   password: string;
 
-  @OneToOne(() => Basket, basket => basket.user)
+  @OneToOne(() => Basket, (basket) => basket.user)
   basket: Basket;
+
+  @OneToMany(() => Comment, comment => comment.user)
+  comments: Comment[];
+
 
   async hashPassword(): Promise<void> {
     if (!this.password) {
