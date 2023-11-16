@@ -61,6 +61,10 @@
 }
 
 .desktop-item-submenu {
+    margin-left: auto;
+}
+
+.desktop-item-prods {
     margin-right: auto;
 }
 
@@ -120,9 +124,9 @@
         width: 100%;
     }
 
-    .desktop-item:nth-last-child(2) { /* Zakładając, że są to ostatnie dwa elementy na liście */
-        margin-left: auto;
-    }
+    /*.desktop-item:nth-last-child(2) { !* Zakładając, że są to ostatnie dwa elementy na liście *!*/
+    /*    margin-left: auto;*/
+    /*}*/
 
     .register-nav-btn, .login-nav-btn {
         font-weight: 700;

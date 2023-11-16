@@ -249,3 +249,15 @@
         min-height: 300px;
     }
 }
+
+.added-to-cart-message {
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    background-color: #3b9fff;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000; /* Upewnij się, że jest wyżej niż inne elementy */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

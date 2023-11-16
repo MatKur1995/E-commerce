@@ -1,12 +1,17 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {useUser} from "../../contextApi/userProvider";
+
+
+interface UserState {
+    username: string;
+    userId: string;
+}
 
 export const Login = () => {
     const [credentials, setCredentials] = useState({ username: "", password: "" });
-
-    // Jeśli chcesz przechowywać więcej informacji, user powinien być obiektem
-    const [user, setUser] = useState({ username: "" });
+    const { setUser } = useUser(); // Użyj hooka useUser
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -17,14 +22,13 @@ export const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:5000/users/login", credentials);
-            const { access_token, username } = response.data; // Oczekujemy teraz username z serwera
+            const { access_token, username, userId } = response.data;
             localStorage.setItem("token", access_token);
-            setUser({
-                username: username, // Używamy username otrzymanego z odpowiedzi serwera
-            });
-            console.log(user)
+            localStorage.setItem("userId", userId);
+            setUser({ username, userId }); // Zaktualizuj stan użytkownika w kontekście
+            // Przekieruj do strony głównej lub dashboardu użytkownika...
         } catch (error) {
-            console.error("Login failed:");
+            console.error("Login failed:", error);
         }
     };
 

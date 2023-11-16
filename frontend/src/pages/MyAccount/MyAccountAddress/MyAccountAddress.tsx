@@ -1,15 +1,22 @@
 import "./MyAccountAddress.css"
 import {MyAccountNav} from "../MyAccountNav/MyAccountNav";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AddAddressModal} from "./AddAddressModal/AddAddressModal";
 import {HeaderProps} from "../../../components/Header/Header.types";
 import {AddAddressModalTypes} from "./AddAddressModal/AddAddressModal.types";
 import {CurrentURL} from "../../../components/CurrentURL/CurrentURL";
+import { useUser } from '../../../contextApi/userProvider'
 
 
 export const MyAccountAddress = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const { user } = useUser(); // Używasz hooka useUser, aby uzyskać dostęp do danych użytkownika
+
+    useEffect(() => {
+        console.log(user?.username); // Tutaj logujesz dane użytkownika
+    }, [user]);
 
     const toggleModal = () => {
         setIsOpen(!isOpen);

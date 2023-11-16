@@ -79,7 +79,7 @@ export const HotDeals = () => {
                         {products && products.map(prod =>
                             <div key={prod.id} className="hot-deals-items">
                                 <p className="items-title">FIFA 2023</p>
-                                <img src={fifa} alt="" className="hot-deals-img"/>
+                               git  <img src={fifa} alt="" className="hot-deals-img"/>
                                 <p className="hot-deals-platform">Platfrom: <span>{prod.platform}</span></p>
                                 <p className="hot-deals-platform">Price: <span>{prod.price}zł</span></p>
                                 <button onClick={() => toggleHotDeals(prod.id)} className="hot-deal-add">ADD</button>

@@ -6,6 +6,7 @@ import {Bucket} from "./Bucket/Bucket";
 import {SearchBar} from "./NavBar/SearchBar/SearchBar";
 import {NavBarDesktop} from "./NavBarDesktop/NavBarDesktop";
 import {Link} from "react-router-dom";
+import {useTotalItems} from "../../contextApi/TotalItemsContext";
 
 
 
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = props => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isBucketMenuOpen, setIsBucketMenuOpen] = useState(false)
+    const { totalItems, setTotalItems } = useTotalItems();
 
     const toggleMenu = () => {
         setIsMenuOpen(prev => !prev);
@@ -39,12 +41,12 @@ export const Header: React.FC<HeaderProps> = props => {
                 </div>
                 <div className="icon-badge-container">
                     <i onClick={toggleBucketMenu} className="header-bucket fa-solid fa-bag-shopping"></i>
-                    <span className="icon-badge">1</span>
+                    <span className="icon-badge">{totalItems}</span>
                 </div>
             </header>
             <NavBarDesktop/>
             <NavBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} toggleMenu={toggleMenu}/>
-            <Bucket isBucketMenuOpen={isBucketMenuOpen} setIsBucketMenuOpen={setIsBucketMenuOpen} toggleBucketMenu={toggleBucketMenu}/>
+            <Bucket totalItems={totalItems} setTotalItems={setTotalItems} isBucketMenuOpen={isBucketMenuOpen} setIsBucketMenuOpen={setIsBucketMenuOpen} toggleBucketMenu={toggleBucketMenu}/>
         </>
     );
 }

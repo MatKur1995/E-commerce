@@ -3,15 +3,18 @@ import "./MyAccountNav.css";
 import avatar from "../../ProductDetails/UsersComments/istockphoto-1337144146-612x612.jpg"
 import {Link} from "react-router-dom";
 import React from "react";
+import {useUser} from "../../../contextApi/userProvider";
 export const MyAccountNav = () => {
 
+
+    const { user } = useUser()
 
     return (
         <>
             <div className="my-account-container">
                 <div className="my-account-userinfo">
                     <img src={avatar} alt=""/>
-                    <p className="my-account-username">John Doe</p>
+                    <p className="my-account-username">{user && user?.username}</p>
                 </div>
                 <nav className="my-account-navbar">
                     <ul className="my-account-list">

@@ -22,6 +22,8 @@ import {ProductList} from "./pages/Admin/Products/ProductList/ProductList";
 import {HotDeals} from "./pages/Admin/Products/HotDeals/HotDeals";
 import {Orders} from "./pages/Admin/Orders/Orders";
 import {Users} from "./pages/Admin/Users/Users";
+import {UserProvider} from "./contextApi/userProvider";
+import {TotalItemsContext, TotalItemsProvider} from "./contextApi/TotalItemsContext";
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
 
   return (
     <div className="App">
+        <UserProvider>
+        <TotalItemsProvider>
         {!isAdminRoute && <Header title="Dada"/>}
         <Routes>
             <Route path="/" element={<Home/>}/>
@@ -53,6 +57,8 @@ function App() {
             <Route path="/admin/users" element={<Users/>}/>
         </Routes>
         {!isAdminRoute && <Footer/>}
+        </TotalItemsProvider>
+        </UserProvider>
     </div>
   );
 }

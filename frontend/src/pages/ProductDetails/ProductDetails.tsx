@@ -8,14 +8,26 @@ import {Link, useParams} from "react-router-dom";
 import { RouteParams } from "../../types/params.types"
 import axios from "axios";
 import {Product} from "../../types/product.types";
+import {useTotalItems} from "../../contextApi/TotalItemsContext";
 export const ProductDetails = () => {
 
 
     const [activeComment, setActiveComment] = useState(true)
     const [activeReviews, setActiveReviews] = useState(false)
     const [productDetails, setProductDetails] = useState<Product>()
+    const [showAddedMessage, setShowAddedMessage] = useState(false);
+    const [addedProductName, setAddedProductName] = useState('');
+    const { totalItems, setTotalItems } = useTotalItems()
 
     const { id } = useParams<RouteParams>();
+
+    const [quantity, setQuantity] = useState(1); // Dodany stan dla ilości
+
+    const handleQuantityChange = (e: any) => {
+        const newQuantity = Math.max(0, Math.min(100, Number(e.target.value)));
+        setQuantity(newQuantity);
+    };
+
     const ShowContent = () => {
         if (activeComment) {
             setActiveReviews(true)
@@ -39,30 +51,34 @@ export const ProductDetails = () => {
         fetchData();
     }, []);
 
-    const handleAddToCart = async (productId: number, quantity: number) => {
+    const handleAddToCart = async (productId: number) => {
         try {
-            // Pobierz token JWT z localStorage
             const token = localStorage.getItem('token');
-
-            // Sprawdź, czy token istnieje przed wysłaniem żądania
             if (!token) {
                 console.error('No token found! User must be logged in to add items to the basket.');
                 return;
             }
-
+            if (!productDetails) {
+                console.error('Product details not loaded yet');
+                return;
+            }
+            setAddedProductName(productDetails.title); // Ustaw nazwę dodanego produktu
+            setTotalItems(prevTotalItems => prevTotalItems + quantity);
+            setShowAddedMessage(true); // Pokaż wiadomość
+            setTimeout(() => {
+                setShowAddedMessage(false);
+            }, 3000);
             await axios.post('http://localhost:5000/basket/add', {
                 productId,
                 quantity
             }, {
                 headers: {
-                    'Authorization': `Bearer ${token}` // Dołącz token JWT w nagłówkach
+                    'Authorization': `Bearer ${token}`
                 }
             });
-
-            // Jeśli nie ma błędów, możesz zaktualizować stan UI lub wykonać inne akcje
             console.log('Product added to basket successfully');
-        } catch (error) {
-            console.error('Error adding item to basket:');
+        } catch (error: any) {
+            console.error('Error adding item to basket:', error.response.data)
         }
     };
 
@@ -72,6 +88,11 @@ export const ProductDetails = () => {
 
     return (
         <>
+            {showAddedMessage && (
+                <div className="added-to-cart-message">
+                    <p>Product {addedProductName} added to basket.</p>
+                </div>
+            )}
             <div className="links-nav">
                 <Link to="/" className="homelink">Home</Link>
                 <Link to="#" className="homelink"><i className="arrow-nav fa-solid fa-caret-right"></i> Product Details</Link>
@@ -107,8 +128,16 @@ export const ProductDetails = () => {
                                 <p>{productDetails.shortDescription}</p>
                             </div>
                             <div className="prod-actions">
-                                <input className="number-input" type="number" min="0" max="100" step="1" value="50"/>
-                                <button onClick={() => handleAddToCart(productDetails.id, 1)} className="prod-add">ADD TO CART</button>
+                                <input
+                                    className="number-input"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    value={quantity} // Powiązany stan z inputem
+                                    onChange={handleQuantityChange} // Funkcja obsługująca zmianę
+                                />
+                                <button onClick={() => handleAddToCart(productDetails.id)} className="prod-add">ADD TO CART</button>
                                 <button className="prod-wishlist"><i className="fa-regular fa-heart"></i></button>
                             </div>
                             <div className="prod-categories">

@@ -32,22 +32,28 @@ export class UsersService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userRepository.findOne({ where: { username } });
-    console.log(user); // Dodaj logowanie, aby zobaczyć, czy user jest poprawnie zwracany
     if (user && (await bcrypt.compare(pass, user.password))) {
-      const { password, ...result } = user;
-      return result;
+      return { username: user.username, userId: user.id };
     }
     return null;
   }
 
-  async validate(payload: any) {
-    const user = await this.userRepository.findOne({
-      where: { username: payload.username },
-    });
-    if (!user) {
-      throw new UnauthorizedException('User not found');
-    }
-    return user; // W req.user znajdzie się teraz zwrócony obiekt użytkownika bez hasła
+  // async validate(payload: any) {
+  //   const user = await this.userRepository.findOne({
+  //     where: { username: payload.username },
+  //   });
+  //   if (!user) {
+  //     throw new UnauthorizedException('User not found');
+  //   }
+  //   return user; // W req.user znajdzie się teraz zwrócony obiekt użytkownika bez hasła
+  // }
+
+  async findByPayload(payload: any): Promise<User> {
+    return await this.userRepository.findOne({ where: { id: payload.sub } });
   }
-  //dasfdasfdsa
+
+  async findByUsername(username: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { username } });
+  }
+
 }

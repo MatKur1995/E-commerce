@@ -18,29 +18,61 @@ export class BasketService {
   ) {}
 
   async addToBasket(userId: number, productId: number, quantity: number): Promise<void> {
-    // Szukaj koszyka (Basket) na podstawie klucza obcego 'userId', który jest zdefiniowany w encji Basket.
-    const basket = await this.basketRepository.findOneOrFail({
+    // Pobierz koszyk użytkownika
+    const basket = await this.basketRepository.findOne({
       where: { user: { id: userId } },
+      relations: ['items', 'items.product'],
     });
 
-    const product = await this.productRepository.findOneOrFail({ where: { id: productId } });
+    if (!basket) {
+      console.error(`Basket not found for user ID ${userId}`);
+      return;
+    }
 
-    const basketItem = new BasketItem();
-    basketItem.basket = basket;
-    basketItem.product = product;
-    basketItem.quantity = quantity;
+    if (!basket.items) {
+      console.error(`Basket items not found for user ID ${userId}`);
+      return;
+    }
 
-    await this.basketItemRepository.save(basketItem);
+    // Sprawdź, czy produkt jest już w koszyku
+    let basketItem = basket.items.find(item => item.product && item.product.id === productId);
+
+    if (basketItem) {
+      // Jeśli tak, zwiększ ilość
+      basketItem.quantity += quantity;
+      await this.basketItemRepository.save(basketItem);
+    } else {
+      // Jeśli nie, dodaj nowy produkt do koszyka
+      const product = await this.productRepository.findOneOrFail({ where: { id: productId } });
+      basketItem = new BasketItem();
+      basketItem.basket = basket;
+      basketItem.product = product;
+      basketItem.quantity = quantity;
+      await this.basketItemRepository.save(basketItem);
+    }
   }
+
 
   async getBasketByUserId(userId: number): Promise<Basket> {
     return await this.basketRepository.findOne({
       where: { user: { id: userId } },
-      relations: ['items', 'items.product'], // Ładuj relacje z encjami BasketItem i Product
+      relations: ['items', 'items.product'],
     });
   }
 
   async removeFromBasket(basketItemId: number): Promise<void> {
     await this.basketItemRepository.delete(basketItemId);
   }
+
+  async clearBasket(userId: number): Promise<void> {
+    const basket = await this.basketRepository.findOne({
+      where: { user: { id: userId } },
+    });
+    if (!basket) {
+      console.error(`Basket not found for user ID ${userId}`);
+      return;
+    }
+    await this.basketItemRepository.delete({ basketId: basket.id });
+  }
+
 }
