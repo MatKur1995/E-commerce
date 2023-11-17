@@ -15,3 +15,10 @@ Profil użytkownika (Zastanowić się w jaki sposób przechowywać tn global con
     - Wish list
     - Orders
     - Kody rabatowe
+
+    _______________
+- Usuwanie i edycja komentarzy, paginacja komentarzy.
+- Odpowiedz do komentarzy.
+- Dodać dodatkowe pola w rejestracji i zacząć tworzyć panel usera (My Account)
+
+

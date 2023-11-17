@@ -17,7 +17,16 @@ type UserProviderProps = {
 };
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-    const [user, setUser] = useState<UserType>(null);
+    const [user, setUser] = useState<UserType>(() => {
+        const storedUser = localStorage.getItem('userId');
+        const storedToken = localStorage.getItem('token');
+        if (storedUser && storedToken) {
+            // Załóżmy, że potrzebujesz również username, który powinien być przechowywany w localStorage
+            const storedUsername = localStorage.getItem('username');
+            return { userId: storedUser, username: storedUsername || '' };
+        }
+        return null;
+    });
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

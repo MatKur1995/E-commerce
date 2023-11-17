@@ -1,5 +1,5 @@
 // controllers/comments.controller.ts
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Param, Patch, Post, Req, UseGuards} from '@nestjs/common';
 import { CommentsService } from './service/comments.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Comment } from '../comments/entities/comments.entity';
@@ -17,4 +17,28 @@ export class CommentsController {
   ): Promise<Comment> {
     return this.commentsService.addCommentToProduct(userId, productId, content);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('delete/:commentId')
+  async removeComment(
+      @Req() req,
+      @Param('commentId') commentId: number,
+  ): Promise<void> {
+    const userId = req.user.id;
+    return this.commentsService.removeComment(userId, commentId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('edit/:commentId')
+  updateComment(
+      @Req() req,
+      @Param('commentId') commentId: number,
+      @Body('content') content: string,
+  ) {
+    console.log(commentId)
+    const userId = req.user.id;
+    return this.commentsService.updateComment(commentId, content, userId);
+  }
+
+
 }

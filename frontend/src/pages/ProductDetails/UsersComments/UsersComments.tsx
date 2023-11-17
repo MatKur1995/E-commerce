@@ -5,6 +5,7 @@ import axios from 'axios';
 import { addCommentsTypes } from '../../../types/addComments.types';
 import { UsersCommentsProps } from '../../../types/userCommentsProps';
 import { useUser } from '../../../contextApi/userProvider';
+import {EditComment} from "./EditComment/EditComment";
 
 
 export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, setProductDetails, activeComment }) => {
@@ -14,6 +15,8 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
         content: '',
     });
     const { user } = useUser()
+
+    console.log(user)
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -21,9 +24,6 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
             [name]: value
         });
     };
-
-    console.log(productDetails?.comments);
-
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -44,7 +44,6 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                       content: '',
                   });
                   console.log('Comment created successfully');
-                  // Tutaj powinieneś również odświeżyć komentarze, aby wyświetlić nowo dodany
               }
           })
           .catch(error => {
@@ -53,6 +52,20 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
           });
     };
 
+    const deleteComment = async (commentId: number) => {
+        const url = `http://localhost:5000/comments/delete/${commentId}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        };
+        try {
+            const response = await axios.delete(url, config);
+            console.log(response);
+        } catch (error) {
+            console.error('Error deleting the comment:', error);
+        }
+    };
 
 
     return (
@@ -92,9 +105,9 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                                 </div>
                                 <div className="comments-actions">
                                     <button className="comment-reply"><i className="fa-solid fa-reply"></i> Reply</button>
-                                    <button className="comment-reply"><i className="fa-regular fa-pen-to-square"></i> Edit
-                                    </button>
-                                    <button className="comment-reply"><i className="fa-solid fa-xmark"></i> Delete
+                                    <EditComment comment={comment}/>
+                                    <button onClick={() => deleteComment(comment.id)} className="comment-reply">
+                                        <i className="fa-solid fa-xmark"></i> Delete
                                     </button>
                                 </div>
                             </div>
