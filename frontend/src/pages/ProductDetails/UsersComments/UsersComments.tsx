@@ -6,6 +6,7 @@ import { addCommentsTypes } from '../../../types/addComments.types';
 import { UsersCommentsProps } from '../../../types/userCommentsProps';
 import { useUser } from '../../../contextApi/userProvider';
 import {EditComment} from "./EditComment/EditComment";
+import { CommentsReplies } from './CommentsReplies/CommentsReplies';
 
 
 export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, setProductDetails, activeComment }) => {
@@ -67,6 +68,11 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
         }
     };
 
+    productDetails && productDetails.comments.forEach(comment => {
+        console.log(comment.replies); // Teraz dostępne dla każdego komentarza indywidualnie
+    });
+
+
 
     return (
         <>
@@ -104,7 +110,7 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                                     <p className="comments-p">{comment.content}</p>
                                 </div>
                                 <div className="comments-actions">
-                                    <button className="comment-reply"><i className="fa-solid fa-reply"></i> Reply</button>
+                                    <CommentsReplies comment={comment}/>
                                     <EditComment comment={comment}/>
                                     <button onClick={() => deleteComment(comment.id)} className="comment-reply">
                                         <i className="fa-solid fa-xmark"></i> Delete
@@ -112,6 +118,32 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                                 </div>
                             </div>
                         </div>
+                        {comment.replies && comment.replies.map((reply) => (
+                        <div key={reply.id} className="comments-reply">
+                            <div className="user-reply-wrapper">
+                                <img src={useravatar} alt=""/>
+                            </div>
+                            <div>
+                                <div className="comments-username-time">
+                                    <p className="reply-username-admin comment-username">{reply.user.username}</p>
+                                    <p className="comment-time">31.10.2023</p>
+                                </div>
+
+                                <div className="comment-res">
+                                    <p className="comment-respon"><i className="fa-solid fa-reply"></i> Responding to {comment.user.username}</p>
+                                </div>
+                                <div className="comments-content">
+                                    <p className="comments-p">{reply.content}</p>
+                                </div>
+                                <div className="comments-actions">
+                                    <button className="comment-reply"><i className="fa-regular fa-pen-to-square"></i> Edit
+                                    </button>
+                                    <button className="comment-reply"><i className="fa-solid fa-xmark"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        ))}
                     </div>
                         ))}
                     <div className="comments">

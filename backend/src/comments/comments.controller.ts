@@ -1,5 +1,5 @@
 // controllers/comments.controller.ts
-import {Body, Controller, Delete, Param, Patch, Post, Req, UseGuards} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { CommentsService } from './service/comments.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Comment } from '../comments/entities/comments.entity';
@@ -39,6 +39,4 @@ export class CommentsController {
     const userId = req.user.id;
     return this.commentsService.updateComment(commentId, content, userId);
   }
-
-
 }

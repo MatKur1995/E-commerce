@@ -15,6 +15,7 @@ import { BasketModule } from './basket/basket.module';
 import { CommentsController } from './comments/comments.controller';
 import { CommentsService } from './comments/service/comments.service';
 import { CommentsModule } from './comments/comments.module';
+import { CommentsRepliesModule } from './comments-replies/comments-replies.module';
 
 
 @Module({
@@ -33,7 +34,8 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     AuthModule,
     BasketModule,
-    CommentsModule, //
+    CommentsModule,
+    CommentsRepliesModule, //
   ],
   controllers: [
     AppController,

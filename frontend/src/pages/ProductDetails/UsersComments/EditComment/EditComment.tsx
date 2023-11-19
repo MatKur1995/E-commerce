@@ -11,7 +11,6 @@ export const EditComment: React.FC<EditCommentProps> = ({ comment }) => {
         setEditModalOpen(true);
     };
 
-    console.log(comment)
     const handleEditCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setEditingComment({ ...editingComment, content: e.target.value });
     };

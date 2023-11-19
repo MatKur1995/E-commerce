@@ -4,6 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typ
 import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
 import { Comment } from '../../comments/entities/comments.entity';
+import { CommentReplies } from '../../comments-replies/entities/comments-replies.entity';
 
 @Entity()
 export class User {
@@ -21,6 +22,10 @@ export class User {
 
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];
+
+  @OneToMany(() => CommentReplies, reply => reply.user)
+  replies: CommentReplies[];
+
 
 
   async hashPassword(): Promise<void> {

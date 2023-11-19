@@ -83,10 +83,6 @@ export const ProductDetails = () => {
         }
     };
 
-
-
-
-
     return (
         <>
             {showAddedMessage && (

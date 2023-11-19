@@ -1,18 +1,23 @@
-// Definicja interfejsu dla komentarza
-
 export interface User {
     id: number;
     username: string;
-    // Dodaj tutaj inne pola związane z użytkownikiem, jeśli są potrzebne
+    // Add other user-related fields if needed
+}
+
+export interface CommentReply {
+    id: number;
+    content: string;
+    user: User;
+    // comment: Comment; // You probably don't need to reference back to the comment in the reply
 }
 
 export interface Comment {
     id: number;
     content: string;
     createdAt: Date;
-    user: User; // Tutaj dodajesz pole user typu User
+    user: User;
+    replies: CommentReply[]; // Change this to an array of CommentReply
 }
-
 
 // Uaktualniony interfejs produktu z właściwym typem dla komentarzy
 export interface Product {
