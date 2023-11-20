@@ -44,6 +44,7 @@ export const CommentsReplies: React.FC<ReplyCommentProps> = ({ comment }) => {
       {isReplyModalOpen && (
         <div className="modal">
           <div className="modal-content">
+            <h3>Reply comment</h3>
             <textarea
               name="content"
               value={replyComment.content}

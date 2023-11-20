@@ -45,7 +45,7 @@ export class CommentsRepliesService {
       throw new UnauthorizedException('You are not authorized to delete this comment');
     }
 
-    await this.commentsRepository.delete(replyId);
+    await this.commentsRepliesRepository.delete(replyId);
   }
 
   async updateReply(replyId: number, content: string, userId: number): Promise<CommentReplies> {

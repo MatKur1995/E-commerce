@@ -28,8 +28,6 @@ export const ProductDetails = () => {
         setQuantity(newQuantity);
     };
 
-    console.log(productDetails);
-
     const ShowContent = () => {
         if (activeComment) {
             setActiveReviews(true)
@@ -50,7 +48,7 @@ export const ProductDetails = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [productDetails]);
 
     const handleAddToCart = async (productId: number) => {
         try {

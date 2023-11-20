@@ -7,6 +7,8 @@ import { UsersCommentsProps } from '../../../types/userCommentsProps';
 import { useUser } from '../../../contextApi/userProvider';
 import {EditComment} from "./EditComment/EditComment";
 import { CommentsReplies } from './CommentsReplies/CommentsReplies';
+import {CommentsRepliesDelete} from "./CommentsReplies/CommentsRepliesDelete/CommentsRepliesDelete";
+import {CommentsRepliesEdit} from "./CommentsReplies/CommentsRepliesEdit/CommentsRepliesEdit";
 
 
 export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, setProductDetails, activeComment }) => {
@@ -16,8 +18,6 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
         content: '',
     });
     const { user } = useUser()
-
-    console.log(user)
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -68,12 +68,6 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
         }
     };
 
-    productDetails && productDetails.comments.forEach(comment => {
-        console.log(comment.replies); // Teraz dostępne dla każdego komentarza indywidualnie
-    });
-
-
-
     return (
         <>
             {activeComment && (
@@ -111,10 +105,14 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                                 </div>
                                 <div className="comments-actions">
                                     <CommentsReplies comment={comment}/>
-                                    <EditComment comment={comment}/>
-                                    <button onClick={() => deleteComment(comment.id)} className="comment-reply">
-                                        <i className="fa-solid fa-xmark"></i> Delete
-                                    </button>
+                                    {Number(user?.userId) === comment.user.id && (
+                                        <>
+                                            <EditComment comment={comment}/>
+                                            <button onClick={() => deleteComment(comment.id)} className="comment-reply">
+                                                <i className="fa-solid fa-xmark"></i> Delete
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -135,12 +133,12 @@ export const UsersComments: React.FC<UsersCommentsProps> = ({ productDetails, se
                                 <div className="comments-content">
                                     <p className="comments-p">{reply.content}</p>
                                 </div>
+                                {Number(user?.userId) === reply.user.id && (
                                 <div className="comments-actions">
-                                    <button className="comment-reply"><i className="fa-regular fa-pen-to-square"></i> Edit
-                                    </button>
-                                    <button className="comment-reply"><i className="fa-solid fa-xmark"></i> Delete
-                                    </button>
+                                    <CommentsRepliesEdit reply={reply}/>
+                                    <CommentsRepliesDelete reply={reply} />
                                 </div>
+                                )}
                             </div>
                         </div>
                         ))}

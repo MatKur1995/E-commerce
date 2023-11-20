@@ -21,7 +21,7 @@ export class CommentsRepliesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('delete-reply/:commentId')
+  @Delete('delete/:replyId')
   async removeReply(
     @Req() req,
     @Param('replyId') replyId: number,
@@ -31,7 +31,7 @@ export class CommentsRepliesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('edit-reply/:commentId')
+  @Patch('edit-reply/:replyId')
   updateReply(
     @Req() req,
     @Param('replyId') replyId: number,

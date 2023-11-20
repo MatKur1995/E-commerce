@@ -8,7 +8,7 @@ export interface CommentReply {
     id: number;
     content: string;
     user: User;
-    // comment: Comment; // You probably don't need to reference back to the comment in the reply
+    comment: Comment; // Ta linia wymaga, aby obiekt reply zawierał właściwość comment.
 }
 
 export interface Comment {
