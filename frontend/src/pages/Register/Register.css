@@ -1,0 +1,24 @@
+.register-992 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 70px 0;
+}
+
+
+@media (min-width: 576px) {
+    form.reg-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reg-container-inputs {
+        display: flex;
+    }
+
+    .input-container{
+        margin-right: 10px;
+    }
+
+}

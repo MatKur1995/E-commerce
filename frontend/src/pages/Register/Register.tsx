@@ -10,13 +10,20 @@ export const Register = () => {
     const [formData, setFormData] = useState<RegisterFromData>({
         username: '',
         password: '',
+        firstName: null,
+        lastName: null,
+        email: '',
+        emailRepeat: '',
+        address: null,
+        street: null,
+
     });
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: value !== '' ? value : null, // Jeśli pole jest puste, przypisz null
         });
     };
 
@@ -28,6 +35,12 @@ export const Register = () => {
         const createUserDto = {
             username: formData.username,
             password: formData.password,
+            email: formData.email,
+            emailRepeat: formData.emailRepeat,
+            firstName: formData.firstName || null,
+            lastName: formData.lastName || null,
+            address: formData.address || null,
+            street: formData.street || null,
         };
 
         axios.post('http://localhost:5000/users', createUserDto)
@@ -36,7 +49,13 @@ export const Register = () => {
                     // Resetowanie formularza i ewentualne przekierowanie lub wyświetlenie komunikatu
                     setFormData({
                         username: '',
-                        password: ''
+                        password: '',
+                        firstName: null,
+                        lastName: null,
+                        email: '',
+                        emailRepeat: '',
+                        address: null,
+                        street: null,
                     });
                     // Możesz przekierować użytkownika do logowania lub wyświetlić komunikat o sukcesie
                     console.log('User registered successfully');
@@ -50,38 +69,114 @@ export const Register = () => {
 
 
     return (
-        <div className="login-992">
+        <div className="register-992">
             <div className="login-wrapper">
                 <h3 className="login-title header-title"><span>O</span>nline-<span>S</span>hop</h3>
                 <div className="login-panel">
-                    <form onSubmit={handleSubmit} className="login-form">
-                        <div className="input-container">
-                            <i className="fa fa-user icon-login"></i>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                placeholder="username"
-                                value={formData.username}
-                                onChange={handleInputChange}
-                                required
-                            />
+                    <form onSubmit={handleSubmit} className="reg-form login-form">
+                        <div className="test-1">
+                            <div className="reg-container-inputs">
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Username *"
+                                        value={formData.username}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <i className="fa fa-lock icon-login"></i>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Password *"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="reg-container-inputs">
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Email *"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="email"
+                                        id="emailRepeat"
+                                        name="emailRepeat"
+                                        placeholder="Repeat email *"
+                                        value={formData.emailRepeat}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        {/*<div className="input-container">*/}
-                        {/*    <i className="fa-regular fa-envelope icon-login"></i>*/}
-                        {/*    <input type="email" id="email" name="email" placeholder="Email" />*/}
-                        {/*</div>*/}
-                        <div className="input-container">
-                            <i className="fa fa-lock icon-login"></i>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                                required
-                            />
+                        <div className="test-2">
+                            <div className="reg-container-inputs">
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        name="firstName"
+                                        placeholder="First name"
+                                        value={formData.firstName || ''}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder="Last name"
+                                        value={formData.lastName || ''}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="reg-container-inputs">
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        name="address"
+                                        placeholder="Address"
+                                        value={formData.address || ''}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <i className="fa fa-user icon-login"></i>
+                                    <input
+                                        type="text"
+                                        id="street"
+                                        name="street"
+                                        placeholder="Street"
+                                        value={formData.street || ''}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
                         {/*<div className="input-container">*/}
                         {/*    <i className="fa fa-lock icon-login"></i>*/}

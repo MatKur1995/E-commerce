@@ -5,6 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
 import { Comment } from '../../comments/entities/comments.entity';
 import { CommentReplies } from '../../comments-replies/entities/comments-replies.entity';
+import {IsNotEmpty, IsEmail, Matches, IsOptional} from 'class-validator';
 
 @Entity()
 export class User {
@@ -16,6 +17,29 @@ export class User {
 
   @Column()
   password: string;
+
+
+  @IsOptional()
+  @Column({ nullable: true })
+  firstName?: string;
+
+  @IsOptional()
+  @Column({ nullable: true })
+  lastName?: string;
+
+  @Column({ type: 'varchar', unique: true })
+  email: string | null;
+
+  @Column({ type: 'varchar' })
+  emailRepeat: string;
+
+  @IsOptional()
+  @Column({ nullable: true })
+  address?: string;
+
+  @IsOptional()
+  @Column({ nullable: true })
+  street?: string;
 
   @OneToOne(() => Basket, (basket) => basket.user)
   basket: Basket;
