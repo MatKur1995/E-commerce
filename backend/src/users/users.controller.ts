@@ -44,8 +44,9 @@ export class UsersController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Patch('profile')
+    @Patch('profile/edit')
     async updateProfile(@Req() req, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+        console.log(req.body)
         return this.usersService.updateProfile(req.user.id, updateUserDto);
     }
 

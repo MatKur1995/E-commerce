@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {useState} from "react";
 import "./NavBarDesktop.css"
 import {useUser} from "../../../contextApi/userProvider";
+import {LogOut} from "./LogOut";
 
 export const NavBarDesktop = () => {
     const [isSubMenuOpen, setSubMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ export const NavBarDesktop = () => {
                             <li className="li-submenu-item"><Link className='desktop-submenu-item' to="/my-account/myorders/1">My orders</Link></li>
                             <li className="li-submenu-item"><Link className='desktop-submenu-item' to="/my-account/support/1">Support</Link></li>
                             <li className="li-submenu-item"><Link className='desktop-submenu-item' to="/my-account/wish-list/1">Wish list</Link></li>
-                            <li className="li-submenu-item"><Link className='desktop-submenu-item' to="/logout">Log out</Link></li>
+                            <LogOut/>
                         </ul>
                     </li>
                 )}

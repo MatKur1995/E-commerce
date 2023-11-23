@@ -30,9 +30,6 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   email: string | null;
 
-  @Column({ type: 'varchar' })
-  emailRepeat: string;
-
   @IsOptional()
   @Column({ nullable: true })
   address?: string;

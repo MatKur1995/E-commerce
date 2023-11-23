@@ -4,6 +4,7 @@ import avatar from "../../ProductDetails/UsersComments/istockphoto-1337144146-61
 import {Link} from "react-router-dom";
 import React from "react";
 import {useUser} from "../../../contextApi/userProvider";
+import {MyAccountLogout} from "./MyAccountLogout/MyAccountLogout";
 export const MyAccountNav = () => {
 
 
@@ -22,7 +23,7 @@ export const MyAccountNav = () => {
                         <Link to="/my-account/address/1" className="my-account-item"><i className="fa-solid fa-address-book"></i> My Address</Link>
                         <Link to="/my-account/myorders/1" className="my-account-item"><i className="fa-regular fa-clipboard"></i> My Order</Link>
                         <Link to="/my-account/support/1" className="my-account-item"><i className="fa-solid fa-headset"></i> Support Tickets</Link>
-                        <Link to="#" className="my-account-item"><i className="fa-solid fa-right-from-bracket"></i> Log Out</Link>
+                        <MyAccountLogout/>
                     </ul>
                 </nav>
             </div>

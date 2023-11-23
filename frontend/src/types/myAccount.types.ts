@@ -2,6 +2,14 @@ export interface myAccountTypes {
     password: string;
     passwordRepeat: string;
     email: string;
-    firstName: string | null; // zezwól na string lub null
+    emailRepeat: string;
+    firstName: string | null;
+    lastName: string | null;
+}
+
+export interface myAccountAddress {
+    street: string;
+    address: string;
+    firstName: string | null;
     lastName: string | null;
 }

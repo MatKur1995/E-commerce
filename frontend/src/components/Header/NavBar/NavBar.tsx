@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {NavBarProps} from "./NavBar.types";
 import {SearchBar} from "./SearchBar/SearchBar";
 import {useUser} from "../../../contextApi/userProvider";
+import {LogOut} from "./LogOut";
 
 
 export const NavBar: React.FC<NavBarProps> = ({isMenuOpen, setIsMenuOpen, toggleMenu}) => {
@@ -33,7 +34,7 @@ export const NavBar: React.FC<NavBarProps> = ({isMenuOpen, setIsMenuOpen, toggle
                                         <li className="sub-nav-item"><Link className='sub-nav-item' to="/my-account/myorders/1">My orders</Link></li>
                                         <li className="sub-nav-item"><Link className='sub-nav-item' to="/my-account/wish-list/1">Wish list</Link></li>
                                         <li className="sub-nav-item"><Link className='sub-nav-item' to="/my-account/support/1">Support</Link></li>
-                                        <li className="sub-nav-item"><Link className='sub-nav-item' to="/logout">Log out</Link></li>
+                                        <LogOut/>
                                     </ul>
                                 )}
                             </li>

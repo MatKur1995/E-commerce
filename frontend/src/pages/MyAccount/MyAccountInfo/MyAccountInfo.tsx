@@ -14,9 +14,12 @@ export const MyAccountInfo = () => {
         firstName: '',
         lastName: '',
         email: '',
+        emailRepeat: '',
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -34,6 +37,7 @@ export const MyAccountInfo = () => {
                         firstName: response.data.firstName,
                         lastName: response.data.lastName,
                         email: response.data.email,
+                        emailRepeat: response.data.email
                     })
                 }
             } catch (error) {
@@ -54,26 +58,41 @@ export const MyAccountInfo = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setErrorMessage('')
 
         if (formData.password !== formData.passwordRepeat) {
-            alert('Hasła nie są identyczne!');
+            setErrorMessage('Passwords not match');
+            return;
+        }
+
+        if (formData.email !== formData.emailRepeat) {
+            setErrorMessage('Email not match');
             return;
         }
 
         setIsSubmitting(true);
 
         try {
-            const response = await axios.put('/api/user/update', formData, {
-                headers: { /* headers, np. z tokenem autoryzacyjnym */ },
+            const response = await axios.patch('http://localhost:5000/users/profile/edit', formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}` // Zakładając, że token jest przechowywany w localStorage pod kluczem 'token'
+                }
             });
 
             if (response.status === 200) {
-                alert('Profil zaktualizowany pomyślnie!');
-                // Dodatkowa logika po pomyślnej aktualizacji
+                setErrorMessage('Profile updated succesful');
             }
         } catch (error) {
-            alert('Wystąpił błąd podczas aktualizacji profilu.');
-            console.error('Update error:', error);
+            if (axios.isAxiosError(error)) {
+                if (error.response && error.response.status === 400) {
+                    setErrorMessage(error.response.data.message || 'Wystąpił błąd podczas aktualizacji profilu.');
+                } else {
+                    setErrorMessage('Wystąpił nieznany błąd. Spróbuj ponownie później.');
+                }
+            } else {
+                // Dla innych błędów niezwiązanych z Axios
+                setErrorMessage('Wystąpił błąd podczas komunikacji z serwerem.');
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -89,13 +108,14 @@ export const MyAccountInfo = () => {
                     <div className="info-container">
                         <p className="info-p">My Account</p>
                         <form onSubmit={handleSubmit} className="account-changes">
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
                             <div className="account-changes-992">
                                 <div className="first-input input-group">
                                     <label htmlFor="firstname">First name</label>
                                     <input
                                         type="text"
                                         id="firstname"
-                                        name="firstname"
+                                        name="firstName"
                                         value={formData.firstName || ''}
                                         onChange={handleInputChange}
                                     ></input>
@@ -105,7 +125,7 @@ export const MyAccountInfo = () => {
                                     <input
                                         type="text"
                                         id="lastname"
-                                        name="lastname"
+                                        name="lastName"
                                         value={formData.lastName || ''}
                                         onChange={handleInputChange}
                                     ></input>
@@ -140,6 +160,16 @@ export const MyAccountInfo = () => {
                                 type="email"
                                 placeholder="Email *"
                                 value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                            ></input>
+                            <label htmlFor="email">Email repeat</label>
+                            <input
+                                id="email"
+                                name="emailRepeat"
+                                type="emailRepeat"
+                                placeholder="Email repeat *"
+                                value={formData.emailRepeat}
                                 onChange={handleInputChange}
                                 required
                             ></input>

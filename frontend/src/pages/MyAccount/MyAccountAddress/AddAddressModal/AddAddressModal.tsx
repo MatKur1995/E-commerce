@@ -1,15 +1,42 @@
 import "./AddAddressModal.css"
 import React, {useState} from "react";
 import {AddAddressModalTypes} from "./AddAddressModal.types";
+import axios from "axios";
 
 
-export const AddAddressModal: React.FC<AddAddressModalTypes> = ({isOpen,setIsOpen, toggleModal}) => {
+export const AddAddressModal: React.FC<AddAddressModalTypes> = ({isOpen, setIsOpen, toggleModal}) => {
 
+    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
 
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value);
+    const handleStreetChange = (e: React.ChangeEvent<HTMLInputElement>) => setStreet(e.target.value);
+
+    const handleAddAddress = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const response = await axios.patch('http://localhost:5000/users/profile/edit', { address, street }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (response.status === 200) {
+                    console.log('Address updated successfully');
+                    // Możesz tutaj zamknąć modal i/lub odświeżyć dane użytkownika w interfejsie
+                    toggleModal()
+                }
+            } catch (error) {
+                console.error('Error updating address:', error);
+            }
+        }
+    };
     return (
         <div>
             <div className="add-address-container">
-            <button className="modal-button" onClick={toggleModal}>Add Address</button>
+                <button className="modal-button" onClick={toggleModal}>Add Address</button>
             </div>
 
             {isOpen && (
@@ -17,13 +44,26 @@ export const AddAddressModal: React.FC<AddAddressModalTypes> = ({isOpen,setIsOpe
                     <div className="modal-content">
                         <span className="close-button" onClick={toggleModal}>×</span>
                         <h2>Add Address</h2>
-                        <input className="input-modal-address" type="text" placeholder="Full Name" />
-                        <input className="input-modal-address" type="text" placeholder="Phone Number" />
-                        <input className="input-modal-address" type="text" placeholder="Country" />
-                        <input className="input-modal-address" type="text" placeholder="City" />
-                        <input className="input-modal-address" type="text" placeholder="Postal Code" />
-                        <textarea className="input-modal-address" placeholder="Address"></textarea>
-                            <button className="modal-button-add" onClick={toggleModal}>Add Address</button>
+                        <form onSubmit={handleAddAddress}>
+                            {/*<input className="input-modal-address" type="text" placeholder="Full Name"/>*/}
+                            {/*<input className="input-modal-address" type="text" placeholder="Phone Number"/>*/}
+                            <input
+                                className="input-modal-address"
+                                type="text"
+                                placeholder="Address"
+                                value={address}
+                                onChange={handleAddressChange}
+                            />
+                            <input
+                                className="input-modal-address"
+                                type="text"
+                                placeholder="Street"
+                                value={street}
+                                onChange={handleStreetChange}
+                            />
+                            {/*<input className="input-modal-address" type="text" placeholder="Postal Code"/>*/}
+                            <button type="submit" className="modal-button-add">Add Address</button>
+                        </form>
                     </div>
                 </div>
             )}

@@ -40,7 +40,7 @@ export class UsersService {
 
   async getProfile(id: number): Promise<User | undefined> {
     return this.userRepository.createQueryBuilder('user')
-        .select(['user.id', 'user.username', 'user.firstName', 'user.lastName', 'user.email']) // lista kolumn, które chcesz zwrócić
+        .select(['user.id', 'user.username', 'user.firstName', 'user.lastName', 'user.email', 'user.street', 'user.address']) // lista kolumn, które chcesz zwrócić
         .where('user.id = :id', { id })
         .getOne();
   }
@@ -63,8 +63,13 @@ export class UsersService {
       throw new NotFoundException(`User with ID ${id} not found.`);
     }
 
-    if (updateUserDto.password !== updateUserDto.passwordConfirm) {
+
+    if (updateUserDto.password !== updateUserDto.passwordRepeat) {
       throw new BadRequestException('Passwords do not match.');
+    }
+
+    if (updateUserDto.email !== updateUserDto.emailRepeat) {
+      throw new BadRequestException('Email do not match');
     }
 
     if (updateUserDto.email && updateUserDto.email !== user.email) {
@@ -75,14 +80,33 @@ export class UsersService {
       user.email = updateUserDto.email;
     }
 
+
+
     if (updateUserDto.password) {
       const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
       user.password = hashedPassword;
+    }
+
+    if (updateUserDto.firstName !== undefined) {
+      user.firstName = updateUserDto.firstName;
+    }
+
+    if (updateUserDto.lastName !== undefined) {
+      user.lastName = updateUserDto.lastName;
+    }
+
+    if (updateUserDto.address !== undefined) {
+      user.address = updateUserDto.address;
+    }
+
+    if (updateUserDto.street !== undefined) {
+      user.street = updateUserDto.street;
     }
 
     await this.userRepository.save(user);
 
     return user;
   }
+
 
 }

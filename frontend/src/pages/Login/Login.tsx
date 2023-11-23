@@ -4,12 +4,6 @@ import axios from "axios";
 import {useUser} from "../../contextApi/userProvider";
 import "./Login.css"
 
-
-interface UserState {
-    username: string;
-    userId: string;
-}
-
 export const Login = () => {
     const [credentials, setCredentials] = useState({ username: "", password: "" });
     const { setUser } = useUser(); // Użyj hooka useUser
@@ -26,8 +20,10 @@ export const Login = () => {
             const { access_token, username, userId } = response.data;
             localStorage.setItem("token", access_token);
             localStorage.setItem("userId", userId);
-            setUser({ username, userId }); // Zaktualizuj stan użytkownika w kontekście
-            // Przekieruj do strony głównej lub dashboardu użytkownika...
+            setUser({ username, userId });
+            if(response.status == 200) {
+                window.location.href = '/';
+            }
         } catch (error) {
             console.error("Login failed:", error);
         }
