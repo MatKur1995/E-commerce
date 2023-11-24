@@ -1,11 +1,10 @@
-// src/users/user.entity.ts
-
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
 import { Comment } from '../../comments/entities/comments.entity';
 import { CommentReplies } from '../../comments-replies/entities/comments-replies.entity';
-import {IsNotEmpty, IsEmail, Matches, IsOptional} from 'class-validator';
+import {IsEmail, IsOptional} from 'class-validator';
+import {Wishlist} from "../../wishlist/entities/wishlist.entity";
 
 @Entity()
 export class User {
@@ -28,7 +27,7 @@ export class User {
   lastName?: string;
 
   @Column({ type: 'varchar', unique: true })
-  email: string | null;
+  email: string;
 
   @IsOptional()
   @Column({ nullable: true })
@@ -40,6 +39,9 @@ export class User {
 
   @OneToOne(() => Basket, (basket) => basket.user)
   basket: Basket;
+
+  @OneToOne(() => Wishlist, (wishlist) => wishlist.user)
+  wishlist: Wishlist;
 
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];

@@ -4,6 +4,7 @@ import { BasketService } from './services/basket.service';
 import { Basket } from './entities/basket.entity';
 import { BasketItem } from './entities/basketItem.entity';
 import { Product } from '../products/entities/product.entity';
+import {WishlistModule} from "../wishlist/wishlist.module";
 
 @Module({
   imports: [

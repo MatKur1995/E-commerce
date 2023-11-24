@@ -8,6 +8,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
 import {UpdateUserDto} from "../dto/updateUser.dto";
+import {Wishlist} from "../../wishlist/entities/wishlist.entity";
 
 @Injectable()
 export class UsersService {
@@ -16,6 +17,9 @@ export class UsersService {
     private userRepository: Repository<User>,
     @InjectRepository(Basket)
     private basketRepository: Repository<Basket>,
+    @InjectRepository(Wishlist)
+    private wishlistRepository: Repository<Wishlist>,
+
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -26,6 +30,9 @@ export class UsersService {
     const basket = new Basket();
     basket.user = newUser;
     await this.basketRepository.save(basket);
+    const wishlist = new Wishlist()
+    wishlist.user = newUser
+    await this.wishlistRepository.save(wishlist);
 
     return newUser;
   }

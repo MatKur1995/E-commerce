@@ -7,6 +7,7 @@ import { Filters} from "../../types/productListFiltes.types";
 import {Link} from "react-router-dom";
 import {ProductPagination} from "./ProductPagination/ProductPagination";
 import {Spinner} from "../../components/Spinner/Spinner";
+import {WishList} from "./WishList/WishList";
 
 export const ProductsList = () => {
 
@@ -242,7 +243,7 @@ export const ProductsList = () => {
                     </div>
                     <div className="info-prodcut-wrapper">
                         <div className="wish-list-btn">
-                            <i className="fa-regular fa-heart"></i>
+                            <WishList productId={prod.id}/>
                         </div>
                         <div className="single-product-paragraph">
                             <p className="product-p">{prod.title}</p>
