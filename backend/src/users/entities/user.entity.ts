@@ -1,10 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, ManyToOne} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Basket } from '../../basket/entities/basket.entity';
 import { Comment } from '../../comments/entities/comments.entity';
 import { CommentReplies } from '../../comments-replies/entities/comments-replies.entity';
 import {IsEmail, IsOptional} from 'class-validator';
 import {Wishlist} from "../../wishlist/entities/wishlist.entity";
+import {OrderItem} from "../../orders/entitnies/ordersItem.entity";
+import {Order} from "../../orders/entitnies/orders.entity";
 
 @Entity()
 export class User {
@@ -36,6 +38,9 @@ export class User {
   @IsOptional()
   @Column({ nullable: true })
   street?: string;
+
+  @OneToMany(() => Order, order => order.user)
+  orders: Order[];
 
   @OneToOne(() => Basket, (basket) => basket.user)
   basket: Basket;

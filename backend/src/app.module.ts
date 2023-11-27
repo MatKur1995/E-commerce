@@ -17,6 +17,7 @@ import { CommentsService } from './comments/service/comments.service';
 import { CommentsModule } from './comments/comments.module';
 import { CommentsRepliesModule } from './comments-replies/comments-replies.module';
 import { WishlistModule } from './wishlist/wishlist.module';
+import { OrdersModule } from './orders/orders.module';
 
 
 @Module({
@@ -37,7 +38,8 @@ import { WishlistModule } from './wishlist/wishlist.module';
     BasketModule,
     CommentsModule,
     CommentsRepliesModule,
-    WishlistModule, //
+    WishlistModule,
+    OrdersModule, //
   ],
   controllers: [
     AppController,

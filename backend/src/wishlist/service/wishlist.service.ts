@@ -21,23 +21,44 @@ export class WishlistService {
     ) {}
 
     async addProductToWishlist(userId: number, productId: number): Promise<void> {
-        const user = await this.userRepository.findOneBy({ id: userId });
-        const product = await this.productRepository.findOneBy({ id: productId });
-        if (!user || !product) {
-            throw new Error('User or Product not found');
+        // Sprawdzenie istnienia użytkownika
+        const user = await this.userRepository.findOne({ where: { id: userId } });
+        if (!user) {
+            throw new Error('User not found');
         }
+
+        // Sprawdzenie istnienia produktu
+        const product = await this.productRepository.findOne({ where: { id: productId } });
+        if (!product) {
+            throw new Error('Product not found');
+        }
+
+        // Pobranie wishlisty użytkownika wraz z produktami
         const wishlist = await this.wishlistRepository.findOne({
             where: { user: { id: userId } },
             relations: ['items', 'items.product'],
         });
-        let wishlistItem = wishlist.items.find(item => item.product && item.product.id === productId);
-        if (!wishlistItem) {
-            wishlistItem = new WishlistItem();
+
+        // Jeśli wishlist nie istnieje, tworzymy nową
+        if (!wishlist) {
+            throw new Error('Wishlist not found');
+        }
+
+        console.log('Checking for duplicates for product ID:', productId);
+        const productExistsInWishlist = wishlist.items.some(item => item.product.id === productId);
+        console.log('Product exists in wishlist:', productExistsInWishlist);
+        // Jeśli produkt nie istnieje w liście życzeń, dodajemy go
+        if (!productExistsInWishlist) {
+            const wishlistItem = new WishlistItem();
             wishlistItem.wishlist = wishlist;
             wishlistItem.product = product;
             await this.wishListItemRepository.save(wishlistItem);
+        } else {
+            throw new Error('Product already in wishlist');
         }
     }
+
+
 
     async findAllItemsOfWishlist (userId: number): Promise<Wishlist> {
         return await this.wishlistRepository.findOne({
@@ -51,9 +72,17 @@ export class WishlistService {
             where: { id: productId },
         });
         console.log('product id to:', productId)
-        // if (!item) {
-        //     throw new NotFoundException('No wishlist item found');
-        // }
         await this.wishListItemRepository.delete(productId);
+    }
+
+    async clearWishlist(userId: number): Promise<void> {
+        const wishlist = await this.wishlistRepository.findOne({
+            where: { user: { id: userId } },
+            relations: ['items'],
+        });
+        if (!wishlist) {
+            throw new NotFoundException('Wishlist not found');
+        }
+        await this.wishListItemRepository.remove(wishlist.items);
     }
 }

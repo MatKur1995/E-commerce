@@ -39,4 +39,13 @@ export class WishlistController {
         return this.wishlist.removeWishlistItem(userId, productId);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Delete('clear')
+    async clearWishlist(
+        @Req() req,
+    ): Promise<void> {
+        const userId = req.user.id;
+        return this.wishlist.clearWishlist(userId);
+    }
+
 }
