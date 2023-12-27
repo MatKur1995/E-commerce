@@ -114,7 +114,7 @@ export const Bucket: React.FC<BucketProps> = ({totalItems, setTotalItems, toggle
                     </div>
                     <div className="bucket-buttons">
                         <button onClick={clearCart} className="clear-bucket">CLEAR CART</button>
-                        <button className="pay">PAY</button>
+                        <button className="pay"><a href='/my-account/cart/'>PAY</a></button>
                     </div>
                 </div>
             )}

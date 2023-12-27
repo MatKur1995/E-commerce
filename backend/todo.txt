@@ -21,4 +21,24 @@ Profil użytkownika (Zastanowić się w jaki sposób przechowywać tn global con
 - Odpowiedz do komentarzy.
 - Dodać dodatkowe pola w rejestracji i zacząć tworzyć panel usera (My Account)
 
+// Kody zniżkowe:
 
+Encja Code: Ta tabela mogłaby zawierać ogólne informacje o kodach zniżkowych, takie jak:
+
+Unikalny kod zniżkowy.
+Procent lub kwota zniżki.
+Daty ważności (początek i koniec promocji).
+Możliwe ograniczenia (np. minimalna wartość zamówienia).
+Informacja, czy kod jest aktywny.
+Encja CodeItem: W tej tabeli mógłbyś przechowywać informacje o związku między kodami zniżkowymi a konkretnymi produktami, w przypadku gdy kod ma być stosowany tylko do wybranych produktów. Struktura mógłby wyglądać tak:
+
+Identyfikator produktu.
+Identyfikator kodu zniżkowego.
+Ewentualne dodatkowe warunki specyficzne dla danego produktu.
+Relacje: Ważne będzie ustanowienie odpowiednich relacji między tymi encjami oraz encją produktów. CodeItem może mieć relację wiele-do-wielu z produktami, w zależności od tego, czy chcesz umożliwić przypisywanie jednego kodu do wielu produktów.
+
+Walidacja i Aplikacja Zniżek: W logice aplikacji, przy realizacji zamówienia lub dodawaniu produktów do koszyka, będziesz musiał dodać odpowiednią logikę, która sprawdzi ważność kodu zniżkowego i zastosuje zniżkę.
+
+Interfejs Użytkownika: W React będziesz musiał stworzyć odpowiedni interfejs, który pozwoli użytkownikom na wprowadzenie i zastosowanie kodów zniżkowych.
+
+Zarządzanie Kodami: Warto również pomyśleć o panelu administracyjnym, który umożliwi zarządzanie kodami zniżkowymi - dodawanie nowych, edycję istniejących, deaktywację, itp.
