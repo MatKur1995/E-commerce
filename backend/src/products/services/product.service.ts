@@ -1,14 +1,17 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Logger, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../create-product.dto';
+import {Comment} from "../../comments/entities/comments.entity";
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    @InjectRepository(Comment)
+    private commentsRepository: Repository<Comment>,
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
@@ -109,5 +112,18 @@ export class ProductService {
       await this.productRepository.save(product);
     }
     return product;
+  }
+
+  async deleteProduct (id): Promise<void> {
+    const product = await this.productRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Comment not found');
+    }
+
+    await this.commentsRepository.delete({ productId: id });
+    await this.productRepository.delete(id);
   }
 }

@@ -5,15 +5,33 @@ import {Pagination} from "./Pagination/Pagination";
 import {SearchBar} from "./SearchBar/SearchBar";
 import {Link} from "react-router-dom";
 import {AdminHeader} from "../../../../components/Admin/AdminHeader/AdminHeader";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {Product} from "../../../../types/product.types";
 
 export const ProductList = () => {
-    const products = [
-        {id: 1, title: 'Fifa 2023', platform: 'PC', price: '20$'},
-        {id: 2, title: 'Fifa 2023', platform: 'PC', price: '20$'},
-        {id: 3, title: 'Cyberpunk 2077', platform: 'PC', price: '20$'},
-        {id: 4, title: 'ELEX 2', platform: 'PC', price: '20$'},
-        // Dodaj tutaj inne produkty...
-    ];
+
+    const [productList, setProductList] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/products');
+                setProductList(response.data.data); // Zakładamy, że response.data jest Product[]
+            } catch (error) {
+                console.error("Wystąpił błąd podczas pobierania danych:", error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const deleteProduct = async (prodId: number) => {
+        try {
+            const res = await axios.delete(`http://localhost:5000/products/delete/${prodId}`);
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    }
 
     return (
         <>
@@ -21,8 +39,8 @@ export const ProductList = () => {
             <div className="product-list-contaainer-mobile">
                 <div className="product-list-wrapper">
                     <SearchBar/>
-                    {products && products.map(product =>
-                        <div className="product-wrapper">
+                    {productList && productList.map(product =>
+                        <div key={product.id} className="product-wrapper">
                             <div className="product-key-value">
                                 <p className="product-key">TITLE</p>
                                 <p className="product-value">{product.title}</p>
@@ -41,7 +59,7 @@ export const ProductList = () => {
                             </div>
                             <div className="product-actions">
                                 <button className="product-edit">EDIT</button>
-                                <button className="product-del">DEL</button>
+                                <button onClick={() => deleteProduct(product.id)} className="product-del">DEL</button>
                                 <button className="product-discount"><i className="fa-solid fa-tag"></i></button>
                             </div>
                         </div>
@@ -69,7 +87,7 @@ export const ProductList = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {products.map((product) => (
+                            {productList && productList.map(product => (
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
                                     <td>{product.title}</td>
@@ -77,7 +95,8 @@ export const ProductList = () => {
                                     <td>{product.price}</td>
                                     <td>
                                         <button className="table-action-edit">EDIT</button>
-                                        <button className="table-action-del">DEL</button>
+                                        <button onClick={() => deleteProduct(product.id)} className="table-action-del">DEL</button>
+                                        <button className="product-discount"><i className="fa-solid fa-tag"></i></button>
                                     </td>
                                 </tr>
                             ))}

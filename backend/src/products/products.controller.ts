@@ -5,7 +5,7 @@ import {
   Post,
   Body,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors, Delete, Param,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './services/product.service';
@@ -76,5 +76,10 @@ export class ProductsController {
   @Get('non-hot-deals')
   async findNonHotDeals(): Promise<Product[]> {
     return this.productService.findNonHotDeals();
+  }
+
+  @Delete('delete/:id')
+  async deleteProduct(@Param('id') id: number): Promise<void> {
+    return this.productService.deleteProduct(id);
   }
 }
