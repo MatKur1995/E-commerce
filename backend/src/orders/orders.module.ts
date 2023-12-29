@@ -17,6 +17,7 @@ import {BasketModule} from "../basket/basket.module";
     TypeOrmModule.forFeature([Order, OrderItem]),
   ],
   controllers: [OrdersController],
-  providers: [OrderService]
+  providers: [OrderService],
+  exports: [TypeOrmModule],
 })
 export class OrdersModule {}

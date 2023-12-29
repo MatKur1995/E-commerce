@@ -1,10 +1,13 @@
 import {HttpException, HttpStatus, Injectable, Logger, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
-import { Repository } from 'typeorm';
+import {In, Repository} from 'typeorm';
 import { CreateProductDto } from '../create-product.dto';
 import {Comment} from "../../comments/entities/comments.entity";
-
+import { FindOptionsWhere } from 'typeorm';
+import {CommentReplies} from "../../comments-replies/entities/comments-replies.entity";
+import {WishlistItem} from "../../wishlist/entities/wishlistItem.entity";
+import {OrderItem} from "../../orders/entitnies/ordersItem.entity";
 @Injectable()
 export class ProductService {
   constructor(
@@ -12,6 +15,12 @@ export class ProductService {
     private productRepository: Repository<Product>,
     @InjectRepository(Comment)
     private commentsRepository: Repository<Comment>,
+    @InjectRepository(CommentReplies)
+    private commentsRepliesRepository: Repository<CommentReplies>,
+    @InjectRepository(WishlistItem)
+    private wishListItemRepository: Repository<WishlistItem>,
+    @InjectRepository(OrderItem)
+    private orderItemRepository: Repository<OrderItem>,
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
@@ -114,16 +123,36 @@ export class ProductService {
     return product;
   }
 
-  async deleteProduct (id): Promise<void> {
-    const product = await this.productRepository.findOne({
-      where: { id: id },
-    });
+  async deleteProduct(id: number): Promise<void> {
+    const product = await this.productRepository.findOne({ where: { id } });
 
     if (!product) {
-      throw new NotFoundException('Comment not found');
+      throw new NotFoundException('Product not found');
     }
 
-    await this.commentsRepository.delete({ productId: id });
+    // Znajdź ID komentarzy dla produktu
+    const comments = await this.commentsRepository.find({
+      where: { product: { id } },
+      select: ['id'] // wybierz tylko pole 'id'
+    });
+    const commentIds = comments.map(c => c.id);
+
+    // Usuń odpowiedzi dla tych komentarzy
+    await this.commentsRepliesRepository.delete({
+      comment: { id: In(commentIds) } // użyj operatora IN
+    });
+
+    // Usuń komentarze
+    await this.commentsRepository.delete({ product: { id } });
+
+    await this.orderItemRepository.delete({ product: { id } });
+
+    // Usuń powiązane rekordy z wishlist_item
+    await this.wishListItemRepository.delete({ product: { id } });
+
+    // Usuń produkt
     await this.productRepository.delete(id);
   }
+
+
 }

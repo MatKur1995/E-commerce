@@ -9,5 +9,6 @@ import { User } from '../users/entities/user.entity';
   imports: [TypeOrmModule.forFeature([Comment, Product, User])],
   controllers: [CommentsController],
   providers: [CommentsService],
+  exports: [TypeOrmModule], // Dodaj tę linię
 })
 export class CommentsModule {}

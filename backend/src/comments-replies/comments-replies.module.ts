@@ -12,5 +12,6 @@ import { CommentReplies } from './entities/comments-replies.entity';
   ],
   controllers: [CommentsRepliesController],
   providers: [CommentsRepliesService],
+  exports: [TypeOrmModule],
 })
 export class CommentsRepliesModule {}

@@ -23,7 +23,7 @@ export const ProductList = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [productList]);
 
     const deleteProduct = async (prodId: number) => {
         try {
