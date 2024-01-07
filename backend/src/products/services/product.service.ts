@@ -33,6 +33,26 @@ export class ProductService {
     }
   }
 
+  async editProduct(id: number, createProductDto: CreateProductDto): Promise<Product> {
+    try {
+      console.log("Edycja produktu o ID:", id); // Logowanie ID produktu
+      console.log("Otrzymane dane:", createProductDto); // Logowanie danych otrzymanych od użytkownika
+
+      const product = await this.productRepository.findOne({where: { id: id }});
+      if (!product) {
+        throw new NotFoundException(`Product with ID ${id} not found`);
+      }
+
+      Object.assign(product, createProductDto);
+      return this.productRepository.save(product);
+    } catch (error) {
+      throw new HttpException(`Cannot edit product: ${error.message}`, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+
+
   async getFilteredProducts(options: {
     page: number;
     limit: number;
