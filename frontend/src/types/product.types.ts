@@ -31,4 +31,5 @@ export interface Product {
     platform: string;
     price: number;
     priceBefore?: number; // Znacznik zapytania wskazuje, że pole jest opcjonalne
+    discountCodes: string[]; // Znacznik zapytania wskazuje, że pole jest opc
 }

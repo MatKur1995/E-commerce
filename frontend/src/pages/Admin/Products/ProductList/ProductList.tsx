@@ -8,10 +8,13 @@ import {AdminHeader} from "../../../../components/Admin/AdminHeader/AdminHeader"
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Product} from "../../../../types/product.types";
+import {Modal} from "./DiscountCodes/Modal/Modal";
 
 export const ProductList = () => {
 
     const [productList, setProductList] = useState<Product[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,6 +27,12 @@ export const ProductList = () => {
         };
         fetchData();
     }, [productList]);
+
+    const openModal = (product: Product) => {
+        setSelectedProduct(product);
+        setIsModalOpen(true);
+    };
+
 
     const deleteProduct = async (prodId: number) => {
         try {
@@ -60,7 +69,7 @@ export const ProductList = () => {
                             <div className="product-actions">
                                 <button className="product-edit">EDIT</button>
                                 <button onClick={() => deleteProduct(product.id)} className="product-del">DEL</button>
-                                <button className="product-discount"><i className="fa-solid fa-tag"></i></button>
+                                <button onClick={() => openModal(product)} className="product-discount"><i onClick={() => openModal(product)} className="fa-solid fa-tag"></i></button>
                             </div>
                         </div>
                     )}
@@ -96,7 +105,7 @@ export const ProductList = () => {
                                     <td>
                                         <button className="table-action-edit">EDIT</button>
                                         <button onClick={() => deleteProduct(product.id)} className="table-action-del">DEL</button>
-                                        <button className="product-discount"><i className="fa-solid fa-tag"></i></button>
+                                        <button onClick={() => openModal(product)} className="product-discount"><i className="fa-solid fa-tag"></i></button>
                                     </td>
                                 </tr>
                             ))}
@@ -105,8 +114,18 @@ export const ProductList = () => {
                     </div>
                     <Pagination/>
                 </div>
+                {selectedProduct && (
+                    <Modal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        codes={selectedProduct.discountCodes || []}
+                        addCode={(code) => {/* logika dodawania kodu */}}
+                        removeCode={(index) => {/* logika usuwania kodu */}}
+                    />
+                )}
                 <div className="admin-nav-wrapper">
                 </div>
+
             </div>
         </>
     );
