@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Modal.css';
+import axios from "axios";
 
 type ModalProps = {
     isOpen: boolean;

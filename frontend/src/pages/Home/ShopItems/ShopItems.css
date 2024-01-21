@@ -257,8 +257,6 @@ a.carousel-control-prev button, a.carousel-control-next button {
         margin-top: 30px;
         max-height: 200px;
         min-height: 200px;
-        min-width: 200px;
-        max-width: 200px;
     }
 
     .item-rate {
