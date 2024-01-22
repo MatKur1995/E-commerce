@@ -25,6 +25,7 @@ import {Users} from "./pages/Admin/Users/Users";
 import {UserProvider} from "./contextApi/userProvider";
 import {TotalItemsContext, TotalItemsProvider} from "./contextApi/TotalItemsContext";
 import {EditProduct} from "./pages/Admin/Products/EditProduct/EditProduct";
+import {Discounts} from "./pages/Admin/Products/Discounts/Discounts";
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             <Route path="/admin/products/edit-product/:id" element={<EditProduct/>}/>
             <Route path="/admin/products/products-list" element={<ProductList/>}/>
             <Route path="/admin/products/hot-deals" element={<HotDeals/>}/>
+            <Route path="/admin/products/discounts" element={<Discounts/>}/>
             <Route path="/admin/orders" element={<Orders/>}/>
             <Route path="/admin/users" element={<Users/>}/>
         </Routes>
