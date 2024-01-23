@@ -1,8 +1,10 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
+import { Request } from 'express';
 import { DiscountCodesService } from './services/discount-codes.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateCodeDto } from './dto/create-code.dto';
-import {DiscountCode} from "./entities/codes.entity"; // Upewnij się, że ścieżka importu jest prawidłowa
+import { DiscountCode } from "./entities/codes.entity";
+import { Product } from '../products/entities/product.entity';
 
 @Controller('discount-codes')
 export class DiscountCodesController {
@@ -10,11 +12,17 @@ export class DiscountCodesController {
 
     @UseGuards(JwtAuthGuard)
     @Post('create')
-    async createCode(@Body() createCodeDto: CreateCodeDto): Promise<DiscountCode> {
+    async createCode(@Req() req: Request, @Body() createCodeDto: CreateCodeDto): Promise<DiscountCode> {
+        console.log('Request body:', req.body);
         return this.discountCodesService.createCode(
-            createCodeDto.code,
-            createCodeDto.discountPercentage,
-            createCodeDto.codeCreateDate,
+          createCodeDto.code,
+          createCodeDto.discountPercentage,
+          createCodeDto.codeCreateDate,
         );
+    }
+
+    @Get()
+    async getAllDiscountCodes(): Promise<DiscountCode[]> {
+        return this.discountCodesService.getDiscountCodes();
     }
 }

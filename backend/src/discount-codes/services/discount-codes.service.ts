@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { DiscountCode } from '../entities/codes.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from '../../products/entities/product.entity';
 
 @Injectable()
 export class DiscountCodesService {
@@ -18,5 +19,9 @@ export class DiscountCodesService {
         });
 
         return this.discountCodeRepository.save(newCode);
+    }
+
+    async getDiscountCodes(): Promise<DiscountCode[]> {
+        return this.discountCodeRepository.find();
     }
 }

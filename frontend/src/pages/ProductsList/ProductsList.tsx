@@ -103,14 +103,6 @@ export const ProductsList = () => {
         applyFilters();
     }, [currentPage]);
 
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-    };
-
-    const handlePreviousPage = () => {
-        setCurrentPage(currentPage - 1);
-    };
-
     return (
         <>
             {isLoading ? <Spinner /> : (

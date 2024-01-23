@@ -1,7 +1,8 @@
 import "./Discounts.css"
 import {AdminHeader} from "../../../../components/Admin/AdminHeader/AdminHeader";
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import axios from "axios";
+import DiscountCode from "../../../../types/discountCodes.types"
 
 
 
@@ -10,12 +11,25 @@ export const Discounts = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [discountCode, setDiscountCode] = useState('')
-    const [percentage, setPercentage] = useState('')
+    const [discountPercentage, setDiscountPercentage] = useState('')
+    const [codesList, setCodesList] = useState<DiscountCode[]>([])
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/discount-codes');
+                setCodesList(response.data); // Zakładamy, że response.data jest Product[]
+            } catch (error) {
+                console.error("Wystąpił błąd podczas pobierania danych:", error);
+            }
+        };
+        fetchData();
+    }, [codesList]);
 
     const openModal = () => {
         setIsModalOpen(true);
-    };//fkdsajfkd jsalfdslkajflkdsal lkdjfal
+    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -27,7 +41,7 @@ export const Discounts = () => {
         if (name === 'discountCode') {
             setDiscountCode(value);
         } else if (name === 'percentage') {
-            setPercentage(value);
+            setDiscountPercentage(value);
         }
     };
 
@@ -35,8 +49,15 @@ export const Discounts = () => {
         try {
             const data = {
                 code: discountCode,
+                discountPercentage
             };
-            const response = await axios.post('http://localhost:5000/discount-codes/create', data);
+
+            const response = await axios.post('http://localhost:5000/discount-codes/create', data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}` // Pobieranie tokena z localStorage
+                }
+            });
+
             console.log('Data sent successfully:', response.data);
             setDiscountCode('');
         } catch (error) {
@@ -44,6 +65,7 @@ export const Discounts = () => {
         }
         closeModal();
     };
+
 
 
 
@@ -94,15 +116,17 @@ export const Discounts = () => {
                             </tr>
                             </thead>
                             <tbody>
+                            {codesList && codesList.map(code =>
                                 <tr>
-                                    <td>321321</td>
-                                    <td>FKSADJK321KCA</td>
-                                    <td>10%</td>
+                                    <td>{code.id}</td>
+                                    <td>{code.code}</td>
+                                    <td>{code.discountPercentage}</td>
                                     <td>
                                         <button className="table-action-edit">EDIT</button>
                                         <button className="table-action-del">DEL</button>
                                     </td>
                                 </tr>
+                            )}
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +148,7 @@ export const Discounts = () => {
                             type="number"
                             name="percentage"
                             placeholder="Enter percentage of the discount code"
-                            value={percentage}
+                            value={discountPercentage}
                             onChange={handleInputChange}
                         />
                         <button
