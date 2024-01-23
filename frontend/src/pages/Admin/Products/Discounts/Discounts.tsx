@@ -15,7 +15,7 @@ export const Discounts = () => {
 
     const openModal = () => {
         setIsModalOpen(true);
-    };
+    };//fkdsajfkd jsalfdslkajflkdsal lkdjfal
 
     const closeModal = () => {
         setIsModalOpen(false);
