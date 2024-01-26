@@ -13,6 +13,7 @@ export const Bucket: React.FC<BucketProps> = ({totalItems, setTotalItems, toggle
 
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
 
+
     useEffect(() => {
         const fetchBasketItems = async () => {
             try {
@@ -27,13 +28,14 @@ export const Bucket: React.FC<BucketProps> = ({totalItems, setTotalItems, toggle
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setTotalItems(response.data.items.reduce((acc: number, item: BasketItem) => acc + item.quantity, 0));
                 setBasketItems(response.data.items);
+
+                // Aktualizuj ilość produktów w koszyku
+                updateTotalItems(response.data.items);
             } catch (error) {
                 console.error('Error fetching basket items:', error);
             }
         };
-
 
         if (isBucketMenuOpen) {
             fetchBasketItems();

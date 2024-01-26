@@ -24,8 +24,17 @@ export const ShoppingCart = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setTotalItems(response.data.items.reduce((acc: number, item: BasketItem) => acc + item.quantity, 0));
                 setBasketItems(response.data.items);
+
+                // Aktualizuj ilość produktów w koszyku
+                setTotalItems(response.data.items.reduce((acc: number, item: BasketItem) => acc + item.quantity, 0));
+
+                // Inicjalizuj ilość produktów w stanie
+                const quantities: { [key: number]: number } = {};
+                response.data.items.forEach((item: BasketItem) => {
+                    quantities[item.product.id] = item.quantity;
+                });
+                setProductQuantities(quantities);
             } catch (error) {
                 console.error('Error fetching basket items:', error);
             }
@@ -128,7 +137,7 @@ export const ShoppingCart = () => {
               </div>
 
               <div className="summary-info-wrapper">
-                  <Discount/>
+                  <Discount calculateTotalSum={calculateTotalSum}/>
                   <div className="summary-bucket-container">
                       <p className="summary-title">Summary of your purchase:</p>
                       <div className="summary-info">
