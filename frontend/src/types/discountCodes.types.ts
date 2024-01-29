@@ -3,3 +3,8 @@ export default interface DiscountCode {
   code: string;
   discountPercentage: number;
 }
+
+export interface DiscountProps {
+  calculateTotalSum: () => number;
+  onApplyDiscount: (newDiscountPercentage: number) => void;
+}

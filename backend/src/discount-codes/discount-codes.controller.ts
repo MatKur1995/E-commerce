@@ -23,9 +23,9 @@ export class DiscountCodesController {
 
     @UseGuards(JwtAuthGuard)
     @Post('check')
-    async checkCode(@Body('coupon') coupon: string): Promise<DiscountCode> {
-        console.log('Received discount code:', coupon);
-        return this.discountCodesService.checkCode(coupon);
+    async checkCode(@Body('code') code: string): Promise<DiscountCode> {
+        console.log('Received discount code:', code);
+        return this.discountCodesService.checkCode(code);
     }
 
     @Get()

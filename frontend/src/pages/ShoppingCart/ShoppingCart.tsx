@@ -4,11 +4,13 @@ import axios from "axios";
 import { BasketItem } from "../../types/bucket.types";
 import { useTotalItems } from "../../contextApi/TotalItemsContext";
 import { Discount } from './Discount/Discount';
+import {DiscountProps} from '../../types/discountCodes.types'
 
 export const ShoppingCart = () => {
     const { totalItems, setTotalItems } = useTotalItems();
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
     const [productQuantities, setProductQuantities] = useState<{ [key: number]: number }>({});
+    const [discountPercentage, setDiscountPercentage] = useState(0);
 
     useEffect(() => {
         const fetchBasketItems = async () => {
@@ -75,13 +77,21 @@ export const ShoppingCart = () => {
         }));
     };
 
+    const updateDiscount = (newDiscountPercentage: number) => {
+        setDiscountPercentage(newDiscountPercentage);
+        console.log(`Discount applied: ${newDiscountPercentage}%`);
+    };
+
     const calculateTotalSum = () => {
-        return basketItems.reduce((sum, item) => {
+        const subtotal = basketItems.reduce((sum, item) => {
             const quantity = productQuantities[item.product.id] || 1;
             const itemPrice = item.product.price;
             return sum + quantity * itemPrice;
         }, 0);
+        const discountValue = subtotal * (discountPercentage / 100);
+        return subtotal - discountValue;
     };
+
 
     return (
       <>
@@ -137,7 +147,7 @@ export const ShoppingCart = () => {
               </div>
 
               <div className="summary-info-wrapper">
-                  <Discount calculateTotalSum={calculateTotalSum}/>
+                  <Discount calculateTotalSum={calculateTotalSum} onApplyDiscount={updateDiscount}/>
                   <div className="summary-bucket-container">
                       <p className="summary-title">Summary of your purchase:</p>
                       <div className="summary-info">

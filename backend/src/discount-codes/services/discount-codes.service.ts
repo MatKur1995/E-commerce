@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { DiscountCode } from '../entities/codes.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,17 +26,12 @@ export class DiscountCodesService {
         return this.discountCodeRepository.find();
     }
 
-    async checkCode(code: string): Promise<DiscountCode | null> {
+    async checkCode(code: string): Promise<DiscountCode> {
         const discountCode = await this.discountCodeRepository.findOne({ where: { code } });
 
         if (!discountCode) {
-            throw new Error('Discount code not found');
+            throw new NotFoundException('Discount code not found');
         }
-
-        // Dodatkowe warunki, np. sprawdzenie daty ważności kodu
-        // if (discountCode.isExpired) {
-        //     throw new Error('Discount code is expired');
-        // }
 
         return discountCode;
     }

@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {DiscountProps} from "../../../types/discountCodes.types";
 
-type MyComponentProps = {
-  calculateTotalSum: () => number;
-  // inne propsy
-};
-export const Discount:React.FC<MyComponentProps> = ({ calculateTotalSum })  => {
+export const Discount: React.FC<DiscountProps> = ({ calculateTotalSum, onApplyDiscount }) => {
 
 
   const [coupon, setCoupon] = useState('')
+  const [discountCode, setDiscountCode] = useState('');
+  const [discountPercentage, setDiscountPercentage] = useState(0);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCoupon(event.target.value);
-  };
-  const handleCheckDiscount = async () => {
+  const applyDiscount = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     try {
-      const data = {
-        coupon: coupon,
-      };
-
+      const data = { discountCode };
       const response = await axios.post('http://localhost:5000/discount-codes/check', data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      console.log('Data sent successfully:', response.data);
+
+      if (response.data && response.data.discountPercentage !== undefined) {
+        onApplyDiscount(response.data.discountPercentage);
+        alert('Discount applied: ' + response.data.discountPercentage + '%');
+      } else {
+        alert('Invalid discount code!');
+        onApplyDiscount(0);
+      }
     } catch (error) {
-      console.error('Error during the Axios POST request:', error);
+      console.error('Error applying discount code:', error);
+      alert('There was an error processing your discount code.');
+      onApplyDiscount(0);
     }
   };
 
@@ -39,9 +42,9 @@ export const Discount:React.FC<MyComponentProps> = ({ calculateTotalSum })  => {
             type="text"
             className="discount-input"
             placeholder="Your code here"
-            value={coupon}
-          onChange={handleInputChange}/>
-          <button onClick={handleCheckDiscount} className="discount-btn">APPLY</button>
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value)}/>
+          <button onClick={applyDiscount} className="discount-btn">APPLY</button>
         </form>
       </div>
     </>
