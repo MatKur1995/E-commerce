@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 70px 0;
+    /*margin: 70px 0;*/
+    margin-bottom: 20px;
 }
 
 

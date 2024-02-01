@@ -1,5 +1,5 @@
 import "./AdminNavigation.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { AdminNavigationTypes } from "./AdminNavigation.types";
 
@@ -10,6 +10,15 @@ export const AdminNavigation: React.FC<AdminNavigationTypes> = ({
                                                                 }) => {
     const [isSubMenuOpen, setSubMenuOpen] = useState(false);
 
+
+  const menuStyle = {
+    transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
+    transition: 'transform 0.5s ease-out',
+    position: 'fixed' as const, // Użyj as const, aby wskazać, że jest to stała wartość typu string
+    top: 0, // Domyślnie TypeScript rozumie to jako 0px
+    left: 0, // J.w.
+  };
+
     const toggleSubMenu = () => {
         setSubMenuOpen(!isSubMenuOpen);
     };
@@ -17,7 +26,7 @@ export const AdminNavigation: React.FC<AdminNavigationTypes> = ({
     return (
         <>
             <div className={`overlay ${isMenuOpen ? 'overlay-show' : ''}`} onClick={toggleMenu} />
-            <div className={`admin-navi ${isMenuOpen ? 'admin-navi-open' : 'admin-navi-closed'}`}>
+          <div className="admin-navi" style={menuStyle}>
                 <i onClick={toggleMenu} className="admin-navi-close fa-solid fa-xmark"></i>
                 <h3 className="admin-navi-title">
                     <span>O</span>nline-<span>S</span>hop

@@ -7,11 +7,23 @@ import {NotificationsTypes} from "./Notifications.types";
 
 export const Notifications: React.FC<NotificationsTypes> = ({setNotificationsOpen, isNotificationsOpen, toggleNotifications}) => {
 
+    const notificationsStyle = {
+        transform: isNotificationsOpen ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 0.5s ease-out',
+        position: 'fixed' as const,
+        width: '100%',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999,
+        backgroundColor: '#ffffff',
+        // Dodaj tu inne wymagane style
+    };
 
 
     return (
         <>
-            <div className={`notifications-wrapper ${isNotificationsOpen ? 'notification-open' : 'notification-closed'}`}>
+            <div style={notificationsStyle} className={`notifications-wrapper ${isNotificationsOpen ? 'notification-open' : 'notification-closed'}`}>
                 <div className="notifications-title-container">
                     <p className="notifications-title">Notifications</p>
                     <i onClick={toggleNotifications} className="notifications-close fa-solid fa-xmark"></i>

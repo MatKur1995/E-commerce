@@ -1,29 +1,6 @@
-@keyframes slideInNotiFromRight {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-}
-
-@keyframes slideNotiOutToRight {
-    from { transform: translateX(0); }
-    to { transform: translateX(100%); }
-}
-
-.notification-open {
-    animation: slideInNotiFromRight 0.5s ease-out forwards;
-}
-
-.notification-closed{
-    animation: slideNotiOutToRight 0.5s ease-out forwards;
-}
-
+/* Usuń klasy odpowiedzialne za animacje, ponieważ teraz są one kontrolowane przez React */
 .notifications-wrapper {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    right: 0; /* Start from the right side */
-    bottom: 0;
-    z-index: 9999;
-    background-color: #ffffff;
+    /* Usuń właściwości, które teraz są kontrolowane przez React */
 }
 
 .notifications-title-container {
@@ -32,8 +9,7 @@
     padding: 10px;
 }
 
-/* ... rest of your CSS ... */
-
+/* ... reszta twojego CSS ... */
 
 .notifications-title {
     font-weight: 300;

@@ -13,16 +13,6 @@
     display: block;
 }
 
-@keyframes slideInFromLeft {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
-}
-
-@keyframes slideOutToLeft {
-    from { transform: translateX(0); }
-    to { transform: translateX(-100%); }
-}
-
 .admin-navi {
     display: flex;
     align-items: center;
@@ -35,15 +25,7 @@
     padding: 10px;
     min-width: 250px;
     z-index: 1010; /* Ensure the menu is above the overlay */
-    transform: translateX(-100%);
-}
-
-.admin-navi-open {
-    animation: slideInFromLeft 0.5s ease-out forwards;
-}
-
-.admin-navi-closed {
-    animation: slideOutToLeft 0.5s ease-out forwards;
+    /* Usunięte style związane z transformacją i animacją */
 }
 
 .admin-navi-close {
@@ -54,11 +36,6 @@
     right: 20px;
 }
 
-.admin-navi-closed {
-    animation: slideOutToLeft 0.5s ease-out forwards;
-}
-
-
 .admin-navi-list, .sub-admin-nav-list {
     list-style: none;
 }
@@ -67,7 +44,7 @@
     text-decoration: none;
 }
 
-.admin-navi-item a{
+.admin-navi-item a {
     text-decoration: none;
     color: #00193B;
     font-size: 17px;
